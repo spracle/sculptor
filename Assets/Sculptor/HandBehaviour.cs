@@ -125,7 +125,7 @@ public class HandBehaviour : MonoBehaviour {
             if(smoothRange > 2 && preButtonState == false)
             {
                 smoothRange -= 2;
-                OVRInput.SetControllerVibration(1.0f, 1.0f, OVRInput.Controller.RTouch);
+                //OVRInput.SetControllerVibration(1.0f, 1.0f, OVRInput.Controller.RTouch);
             }
         }
 
@@ -134,7 +134,7 @@ public class HandBehaviour : MonoBehaviour {
             if (smoothRange < 10 && preButtonState == false)
             {
                 smoothRange += 2;
-                OVRInput.SetControllerVibration(1.0f, 1.0f, OVRInput.Controller.RTouch);
+                //OVRInput.SetControllerVibration(1.0f, 1.0f, OVRInput.Controller.RTouch);
             }
         }
 
@@ -143,7 +143,7 @@ public class HandBehaviour : MonoBehaviour {
             if (drawRange > 2 && preButtonState == false)
             {
                 drawRange -= 2;
-                OVRInput.SetControllerVibration(1.0f, 1.0f, OVRInput.Controller.LTouch);
+                //OVRInput.SetControllerVibration(1.0f, 1.0f, OVRInput.Controller.LTouch);
             }
         }
 
@@ -152,7 +152,7 @@ public class HandBehaviour : MonoBehaviour {
             if (drawRange < 10 && preButtonState == false)
             {
                 drawRange += 2;
-                OVRInput.SetControllerVibration(1.0f, 1.0f, OVRInput.Controller.LTouch);
+                //OVRInput.SetControllerVibration(1.0f, 1.0f, OVRInput.Controller.LTouch);
             }
         }
 

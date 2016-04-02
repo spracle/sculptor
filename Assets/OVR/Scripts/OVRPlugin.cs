@@ -2,14 +2,14 @@
 
 Copyright   :   Copyright 2014 Oculus VR, LLC. All Rights reserved.
 
-Licensed under the Oculus VR Rift SDK License Version 3.2 (the "License");
+Licensed under the Oculus VR Rift SDK License Version 3.3 (the "License");
 you may not use the Oculus VR Rift SDK except in compliance with the License,
 which is provided at the time of installation or download, or which
 otherwise accompanies this software in either electronic or hard copy form.
 
 You may obtain a copy of the License at
 
-http://www.oculusvr.com/licenses/LICENSE-3.2
+http://www.oculus.com/licenses/LICENSE-3.3
 
 Unless required by applicable law or agreed to in writing, the Oculus VR SDK
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -30,7 +30,7 @@ using System.Runtime.InteropServices;
 
 internal static class OVRPlugin
 {
-	public static readonly System.Version wrapperVersion = new System.Version(1, 2, 0);
+	public static readonly System.Version wrapperVersion = new System.Version(1, 3, 0);
 
 	private static System.Version _version;
 	public static System.Version version
@@ -44,6 +44,8 @@ internal static class OVRPlugin
 
 					if (pluginVersion != null)
 					{
+						// Truncate unsupported trailing version info for System.Version. Original string is returned if not present.
+						pluginVersion = pluginVersion.Split('-')[0];
 						_version = new System.Version(pluginVersion);
 					}
 					else
@@ -51,7 +53,7 @@ internal static class OVRPlugin
 						_version = new System.Version(0, 0, 0);
 					}
 				}
-				catch (DllNotFoundException)
+				catch
 				{
 					_version = new System.Version(0, 0, 0);
 				}
@@ -181,6 +183,7 @@ internal static class OVRPlugin
 	{
 		GlobalMenu = 0,
 		ConfirmQuit,
+        GlobalMenuTutorial,
 	}
 
 	private enum Key
@@ -403,7 +406,9 @@ internal static class OVRPlugin
 	public static bool headphonesPresent
 	{
 		get {
-			if (version >= OVRP_1_1_0.version)
+			if (version >= OVRP_1_3_0.version)
+				return OVRP_1_3_0.ovrp_GetSystemHeadphonesPresent() == OVRPlugin.Bool.True;
+			else if (version >= OVRP_1_1_0.version)
 				return OVRP_1_1_0.ovrp_GetHeadphonesPresent() == OVRPlugin.Bool.True;
 			return true;
 		}
@@ -499,7 +504,15 @@ internal static class OVRPlugin
 		}
 	}
 
-	public static bool hasVrFocus { get { return GetStatus(Status.HasVrFocus); } }
+	public static bool hasVrFocus
+	{
+		get {
+			if (version >= OVRP_1_1_0.version)
+				return OVRP_1_1_0.ovrp_GetAppHasVrFocus() == Bool.True;
+
+			return GetStatus(Status.HasVrFocus);
+		}
+	}
 
 	public static bool shouldQuit { get { return GetStatus(Status.ShouldQuit); } }
 
@@ -609,8 +622,18 @@ internal static class OVRPlugin
 
 	public static bool occlusionMesh
 	{
-		get { return GetCap(Caps.OcclusionMesh); }
-		set { SetCap(Caps.OcclusionMesh, value); }
+		get {
+			if (version >= OVRP_1_3_0.version)
+				return OVRP_1_3_0.ovrp_GetEyeOcclusionMeshEnabled() == Bool.True;
+			else
+				return GetCap(Caps.OcclusionMesh);
+		}
+		set {
+			if (version >= OVRP_1_3_0.version)
+				OVRP_1_3_0.ovrp_SetEyeOcclusionMeshEnabled(ToBool(value));
+			else
+				SetCap(Caps.OcclusionMesh, value);
+		}
 	}
 
 	public static BatteryStatus batteryStatus
@@ -780,6 +803,16 @@ internal static class OVRPlugin
 			return OVRP_1_0_0.ovrp_RecenterTrackingOrigin((uint)flags) == Bool.True;
 		else
 			return false;
+	}
+	
+	//HACK: This makes Unity think it always has VR focus while OVRPlugin.cs reports the correct value.
+	internal static bool ignoreVrFocus
+	{
+		set {
+			if (version >= OVRP_1_2_1.version) {
+				OVRP_1_2_1.ovrp_SetAppIgnoreVrFocus(ToBool(value));
+			}
+		}
 	}
 
 	private const string pluginName = "OVRPlugin";
@@ -995,9 +1028,6 @@ internal static class OVRPlugin
 		public static extern int ovrp_GetSystemVSyncCount();
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern Bool ovrp_SetSystemVSyncCount(int vsyncCount);
-
-		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
 		public static extern float ovrp_GetSystemVolume();
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
@@ -1069,5 +1099,27 @@ internal static class OVRPlugin
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
 		public static extern Bool ovrpi_SetTrackingCalibratedOrigin();
+	}
+
+	private static class OVRP_1_2_1
+	{
+		public static readonly System.Version version = new System.Version(1, 2, 1);
+
+		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
+		public static extern Bool ovrp_SetAppIgnoreVrFocus(Bool value);
+	}
+
+	private static class OVRP_1_3_0
+	{
+		public static readonly System.Version version = new System.Version(1, 3, 0);
+
+		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
+		public static extern Bool ovrp_GetEyeOcclusionMeshEnabled();
+
+		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
+		public static extern Bool ovrp_SetEyeOcclusionMeshEnabled(Bool value);
+
+		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
+		public static extern Bool ovrp_GetSystemHeadphonesPresent();
 	}
 }

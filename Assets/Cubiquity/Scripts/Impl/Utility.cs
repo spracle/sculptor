@@ -22,6 +22,7 @@ namespace Cubiquity.Impl
         // but does not say whether this is also true for 'DestroyImmediate'. We assume it does until we find otherwise...
         public static void DestroyOrDestroyImmediate(Object objectToDestroy)
         {
+            Profiler.BeginSample("DestroyOrDestroyImmediate");
             if (Application.isPlaying)
             {
                 Object.Destroy(objectToDestroy);
@@ -30,6 +31,7 @@ namespace Cubiquity.Impl
             {
                 Object.DestroyImmediate(objectToDestroy);
             }
+            Profiler.EndSample();
         }
 
         public static void DestroyImmediateWithChildren(GameObject gameObject)

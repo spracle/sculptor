@@ -68,7 +68,7 @@ namespace Cubiquity
 			// Add the renderer and collider if desired.
 			if(addRenderer) { terrainVolumeGameObject.AddComponent<TerrainVolumeRenderer>(); }
 			if(addCollider) { terrainVolumeGameObject.AddComponent<TerrainVolumeCollider>(); }
-			
+
 			// Return the created object
 			return terrainVolumeGameObject;
 		}
@@ -110,8 +110,8 @@ namespace Cubiquity
             // This is messy - perhaps the LOD thresold shold not be a parameter to update. Instead it could be passed
             // as a parameter during traversal, so different traversal could retrieve differnt LODs. We then wouldn't
             // want a single 'renderThisNode' member of Cubiquity nodes, but instead some threshold we could compare to.
-            float lodThreshold = GetComponent<VolumeRenderer>() ? GetComponent<VolumeRenderer>().lodThreshold : 1.0f;
 
+            float lodThreshold = GetComponent<VolumeRenderer>() ? GetComponent<VolumeRenderer>().lodThreshold : 1.0f;
             int minimumLOD = GetComponent<VolumeRenderer>() ? GetComponent<VolumeRenderer>().minimumLOD : 0;
 
             // Although the LOD system is partially functional I don't feel it's ready for release yet.
@@ -125,18 +125,18 @@ namespace Cubiquity
             }
 
             bool cubiquityUpToDate = CubiquityDLL.UpdateVolume(data.volumeHandle.Value, camPos.x, camPos.y, camPos.z, lodThreshold);
-					
-			if(CubiquityDLL.HasRootOctreeNode(data.volumeHandle.Value) == 1)
+
+            if (CubiquityDLL.HasRootOctreeNode(data.volumeHandle.Value) == 1)
 			{		
 				uint rootNodeHandle = CubiquityDLL.GetRootOctreeNode(data.volumeHandle.Value);
 						
 				if(rootOctreeNodeGameObject == null)
 				{
-                    rootOctreeNodeGameObject = OctreeNode.CreateOctreeNode(rootNodeHandle, gameObject);	
-				}
+                    rootOctreeNodeGameObject = OctreeNode.CreateOctreeNode(rootNodeHandle, gameObject);
+                }
 
                 OctreeNode.syncNode(ref availableSyncOperations, rootOctreeNodeGameObject, rootNodeHandle, gameObject);
-                                
+
                 if (volumeRenderer != null && volumeRenderer.hasChanged)
                 {
                     OctreeNode.syncNodeWithVolumeRenderer(rootOctreeNodeGameObject, volumeRenderer, true);

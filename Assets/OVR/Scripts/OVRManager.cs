@@ -2,14 +2,14 @@
 
 Copyright   :   Copyright 2014 Oculus VR, LLC. All Rights reserved.
 
-Licensed under the Oculus VR Rift SDK License Version 3.2 (the "License");
+Licensed under the Oculus VR Rift SDK License Version 3.3 (the "License");
 you may not use the Oculus VR Rift SDK except in compliance with the License,
 which is provided at the time of installation or download, or which
 otherwise accompanies this software in either electronic or hard copy form.
 
 You may obtain a copy of the License at
 
-http://www.oculusvr.com/licenses/LICENSE-3.2
+http://www.oculus.com/licenses/LICENSE-3.3
 
 Unless required by applicable law or agreed to in writing, the Oculus VR SDK
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -25,6 +25,7 @@ limitations under the License.
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -84,6 +85,40 @@ public class OVRManager : MonoBehaviour
 			}
 
 			return _profile;
+		}
+	}
+
+	private bool _isPaused;
+	private IEnumerable<Camera> disabledCameras;
+	float prevTimeScale;
+	private bool paused
+	{
+		get { return _isPaused; }
+		set {
+			if (value == _isPaused)
+				return;
+
+			// Sample code to handle VR Focus
+
+//			if (value)
+//			{
+//				prevTimeScale = Time.timeScale;
+//				Time.timeScale = 0.01f;
+//				disabledCameras = GameObject.FindObjectsOfType<Camera>().Where(c => c.isActiveAndEnabled);
+//				foreach (var cam in disabledCameras)
+//					cam.enabled = false;
+//			}
+//			else
+//			{
+//				Time.timeScale = prevTimeScale;
+//				if (disabledCameras != null) {
+//					foreach (var cam in disabledCameras)
+//						cam.enabled = true;
+//				}
+//				disabledCameras = null;
+//			}
+
+			_isPaused = value;
 		}
 	}
 
@@ -262,6 +297,26 @@ public class OVRManager : MonoBehaviour
 	/// If true, distortion rendering work is submitted a quarter-frame early to avoid pipeline stalls and increase CPU-GPU parallelism.
 	/// </summary>
 	public bool queueAhead = true;
+
+	/// <summary>
+	/// The number of expected display frames per rendered frame.
+	/// </summary>
+	public int vsyncCount
+	{
+		get {
+			if (!isHmdPresent)
+				return 1;
+
+			return OVRPlugin.vsyncCount;
+		}
+
+		set {
+			if (!isHmdPresent)
+				return;
+
+			OVRPlugin.vsyncCount = value;
+		}
+	}
 	
 	/// <summary>
 	/// Gets the current battery level.
@@ -413,6 +468,10 @@ public class OVRManager : MonoBehaviour
 	private static string prevAudioOutId = string.Empty;
 	private static string prevAudioInId = string.Empty;
 	private static bool wasPositionTracked = false;
+	
+	[SerializeField]
+	[HideInInspector]
+	internal static bool runInBackground = false;
 
 #region Unity Messages
 
@@ -469,10 +528,19 @@ public class OVRManager : MonoBehaviour
 
 		if (resetTrackerOnLoad)
 			display.RecenterPose();
+		
+		// Disable the occlusion mesh by default until open issues with the preview window are resolved.
+		OVRPlugin.occlusionMesh = false;
+
+		OVRPlugin.ignoreVrFocus = runInBackground;
 	}
 
 	private void Update()
 	{
+#if !UNITY_EDITOR
+		paused = !OVRPlugin.hasVrFocus;
+#endif
+
 		if (OVRPlugin.shouldQuit)
 			Application.Quit();
 

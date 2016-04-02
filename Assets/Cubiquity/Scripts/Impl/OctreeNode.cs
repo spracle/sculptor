@@ -34,6 +34,7 @@ namespace Cubiquity
 
 			public static GameObject CreateOctreeNode(uint nodeHandle, GameObject parentGameObject)
 			{
+                Profiler.BeginSample("CreateOctreeNode");
                 // Get node position from Cubiquity
                 CuOctreeNode cuOctreeNode = CubiquityDLL.GetOctreeNode(nodeHandle);
                 int xPos = cuOctreeNode.posX, yPos = cuOctreeNode.posY, zPos = cuOctreeNode.posZ;
@@ -72,8 +73,9 @@ namespace Cubiquity
                     // must be the root of the Octree. In this case we can use the position directly.
 					newGameObject.transform.localPosition = octreeNode.lowerCorner;
 				}
-				
-				return newGameObject;
+                Profiler.EndSample();
+
+                return newGameObject;
 			}
 
             public static void syncNode(ref uint availableSyncOperations, GameObject nodeGameObject, uint nodeHandle, GameObject voxelTerrainGameObject)

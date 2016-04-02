@@ -412,6 +412,7 @@ namespace Cubiquity
             private static extern int cuGetMesh(uint octreeNodeHandle, out ushort noOfVertices, out IntPtr vertices, out uint noOfIndices, out IntPtr indices);
             public static void GetMesh<VertexType>(uint octreeNodeHandle, out VertexType[] vertices, out ushort[] indices)
             {
+                Profiler.BeginSample("GetMesh");
                 ushort noOfVertices;
                 IntPtr ptrVertices;
                 uint noOfIndices;
@@ -440,13 +441,14 @@ namespace Cubiquity
                     indices[ct] = (ushort)(Marshal.PtrToStructure(offsetPtr, typeof(ushort)));
                     longPtrIndices += Marshal.SizeOf(typeof(ushort));
                 }
+                Profiler.EndSample();
             }
 #endif
 
-			////////////////////////////////////////////////////////////////////////////////
-			// Clock functions
-			////////////////////////////////////////////////////////////////////////////////
-			[DllImport (dllToImport)]
+            ////////////////////////////////////////////////////////////////////////////////
+            // Clock functions
+            ////////////////////////////////////////////////////////////////////////////////
+            [DllImport (dllToImport)]
 			private static extern int cuGetCurrentTime(out uint result);
 			public static uint GetCurrentTime()
 			{

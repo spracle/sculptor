@@ -2,7 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
+using Frankfort.Threading;
+using System.Threading;
+
 using Cubiquity.Impl;
+using System.Diagnostics;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -203,7 +207,7 @@ namespace Cubiquity
 		void Awake()
 		{
 			RegisterVolumeData();
-		}
+        }
 		
 		void OnEnable()
 		{
@@ -240,12 +244,13 @@ namespace Cubiquity
 
         private void FlushInternalData()
         {
+            Profiler.BeginSample("FlushInternalData");
             // It should be enough to delete the root octree node in this function but we're seeing cases 
             // of octree nodes surviving the transition between edit and play modes. I'm not quite sure 
             // why, but the approach below of deleting all child objects seems to solve the problem.
 
             // Find all the child objects 
-            List<GameObject> childObjects = new List<GameObject>();
+            List <GameObject> childObjects = new List<GameObject>();
             foreach (Transform childTransform in gameObject.transform)
             {
                 childObjects.Add(childTransform.gameObject);
@@ -258,6 +263,7 @@ namespace Cubiquity
             }
 
             rootOctreeNodeGameObject = null;
+            Profiler.EndSample();
         }
 
         protected abstract bool SynchronizeOctree(uint maxSyncOperations);
@@ -310,6 +316,12 @@ namespace Cubiquity
 				}
 			}
 
+            UpdateOctree();
+
+        }
+
+        private void UpdateOctree()
+        {
             if (data != null && data.volumeHandle.HasValue)
             {
                 // When we are in game mode we limit the number of nodes which we update per frame, to maintain a nice.
@@ -323,21 +335,22 @@ namespace Cubiquity
                     isMeshSyncronized = SynchronizeOctree(maxSyncOperationsInEditMode);
                 }
             }
-		}
+        }
+
 		/// \endcond
 
         // Public so that we can manually drive it from the editor as required,
         // but user code should not do this so it's hidden from the docs.
         /// \cond
         public void OnGUI()
-        {            
+        {
             // This code doesn't belong in Volume? There should
             // probably be one global copy of this, not one per volume.
 
-            /*GUILayout.BeginArea(new Rect(10, 10, 300, 300));
+            GUILayout.BeginArea(new Rect(10, 10, 300, 300));
             GUI.skin.label.alignment = TextAnchor.MiddleLeft;
             string debugPanelMessage = "Cubiquity Debug Panel\n";
-            if(isMeshSyncronized)
+            if (isMeshSyncronized)
             {
                 debugPanelMessage += "Mesh sync: Completed";
             }
@@ -346,7 +359,7 @@ namespace Cubiquity
                 debugPanelMessage += "Mesh sync: In progress...";
             }
             GUILayout.Box(debugPanelMessage);
-            GUILayout.EndArea();*/
+            GUILayout.EndArea();
         }
         /// \endcond
 
@@ -384,7 +397,7 @@ namespace Cubiquity
 							"Each volume data should only be used by a single volume - please see the Cubiquity for Unity3D user manual and API documentation for more information. " +
 							"\nBoth '" + existingVolumeName + "' and '" + volumeName + "' reference the volume data called '" + volumeDataName + "'." +
 							"\nNote: If you see this message regarding an asset which you have already deleted then you may need to close the scene and/or restart Unity.";
-						Debug.LogWarning(warningMessage);
+                        UnityEngine.Debug.LogWarning(warningMessage);
 					}
 				}
 				else
