@@ -153,6 +153,8 @@
     <Compile Include="Assets\OVR\Scripts\Util\OVRScreenFade.cs" />
     <Compile Include="Assets\OVR\Scripts\Util\OVRTrackerBounds.cs" />
     <Compile Include="Assets\Sculptor\HandBehaviour.cs" />
+    <Compile Include="Assets\Sculptor\HandCanvasControl.cs" />
+    <Compile Include="Assets\Sculptor\HeadCanvasControl.cs" />
     <Compile Include="Assets\Sculptor\TrackAnchor.cs" />
   </ItemGroup>
   <ItemGroup>

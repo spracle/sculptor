@@ -5,19 +5,17 @@ using Cubiquity;
 
 public class TrackAnchor : MonoBehaviour {
 
-    public GameObject leftHandAnchor = null;
     public GameObject rightHandAnchor = null;
     public GameObject BasicProceduralVolume = null;
 
-    private GameObject leftHand = null;
     private GameObject rightHand = null;
 
     private HandBehaviour handBehaviour;
     private TerrainVolume terrainVolume;
     private Vector3 VoxelWorldScale = new Vector3(0.1f, 0.1f, 0.1f);
 
-    private int drawRange;
-    private int smoothRange;
+    private int optRange;
+    private OptShape activeShape, nowShape;
 
     // Use this for initialization
     void Start () {
@@ -27,22 +25,42 @@ public class TrackAnchor : MonoBehaviour {
 
         handBehaviour = GetComponent<HandBehaviour>();
 
-        leftHand = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        rightHand = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        rightHand = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
     }
 	
 	// Update is called once per frame
 	void Update () {
 
-        drawRange = handBehaviour.GetDrawRange();
-        smoothRange = handBehaviour.GetSmoothRange();
+        optRange = handBehaviour.GetOptRange();
 
-        leftHand.transform.position = leftHandAnchor.transform.position;
-        leftHand.transform.localScale = VoxelWorldScale * drawRange;
+        nowShape = handBehaviour.GetActiveShape();
+        if (nowShape != activeShape)
+        {
+            switch (nowShape)
+            {
+                case OptShape.cube:
+                    UnityEngine.Object.Destroy(rightHand.gameObject);
+                    rightHand = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    break;
+                case OptShape.sphere:
+                    UnityEngine.Object.Destroy(rightHand.gameObject);
+                    rightHand = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                    break;
+                case OptShape.cylinder:
+                    UnityEngine.Object.Destroy(rightHand.gameObject);
+                    rightHand = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                    break;
+                case OptShape.capsule:
+                    UnityEngine.Object.Destroy(rightHand.gameObject);
+                    rightHand = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+                    break;
+            }
+            activeShape = nowShape;
+        }
 
         rightHand.transform.position = rightHandAnchor.transform.position;
-        rightHand.transform.localScale = VoxelWorldScale * smoothRange;
+        rightHand.transform.localScale = VoxelWorldScale * optRange;
     }
 
 
