@@ -139,9 +139,10 @@ public class HandBehaviour : MonoBehaviour {
 
     private void emptyPanelHandleOVRInput()
     {
-        if (Axis1D_RB > 0 && Axis1D_RT > 0 && optRange < 10)
+        if (Axis1D_RB > 0 && Axis1D_RT > 0 && optRange < 10 && (Time.time - buttonPreTime) > buttonTimeControl / 5)
         {
             StateHandleOVRInput();
+            buttonPreTime = Time.time;
         }
         else if (Axis1D_RB > 0 && (Time.time - buttonPreTime) > buttonTimeControl)
         {
@@ -152,40 +153,52 @@ public class HandBehaviour : MonoBehaviour {
 
     private void mainPanelHandleOVRInput()
     {
-        if (Axis2D_RB_Left)
-        {
-            activePanel = ControlPanel.color;
-        }
-        if (Axis2D_RB_Right)
+        if (Axis2D_RB_Left && (Time.time - buttonPreTime) > buttonTimeControl)
         {
             activePanel = ControlPanel.shape;
+            buttonPreTime = Time.time;
         }
-        if (Axis2D_RB_Up)
+        if (Axis2D_RB_Right && (Time.time - buttonPreTime) > buttonTimeControl)
+        {
+            activePanel = ControlPanel.color;
+            buttonPreTime = Time.time;
+        }
+        if (Axis2D_RB_Up && (Time.time - buttonPreTime) > buttonTimeControl)
         {
             activePanel = ControlPanel.state;
+            buttonPreTime = Time.time;
         }
-        if (Axis2D_RB_Down || Axis2D_RB_Center)
+        if ((Axis2D_RB_Down || Axis2D_RB_Center) && (Time.time - buttonPreTime) > buttonTimeControl)
         {
             activePanel = ControlPanel.empty;
+            buttonPreTime = Time.time;
         }
     }
 
     private void statePanelHandleOVRInput()
     {
-        if (Axis2D_RB_Left)
+        if (Axis2D_RB_Left && (Time.time - buttonPreTime) > buttonTimeControl)
         {
             activeState = OptState.delete;
             activePanel = ControlPanel.empty;
+            buttonPreTime = Time.time;
         }
-        if (Axis2D_RB_Right)
+        if (Axis2D_RB_Right && (Time.time - buttonPreTime) > buttonTimeControl)
         {
             activeState = OptState.smooth;
             activePanel = ControlPanel.empty;
+            buttonPreTime = Time.time;
         }
-        if (Axis2D_RB_Up)
+        if (Axis2D_RB_Up && (Time.time - buttonPreTime) > buttonTimeControl)
         {
             activeState = OptState.create;
             activePanel = ControlPanel.empty;
+            buttonPreTime = Time.time;
+        }
+        if ((Axis2D_RB_Down || Axis2D_RB_Center) && (Time.time - buttonPreTime) > buttonTimeControl)
+        {
+            activePanel = ControlPanel.empty;
+            buttonPreTime = Time.time;
         }
     }
 
@@ -228,7 +241,11 @@ public class HandBehaviour : MonoBehaviour {
             }
             buttonPreTime = Time.time;
         }
-
+        if (Axis2D_RB_Center && (Time.time - buttonPreTime) > buttonTimeControl)
+        {
+            activePanel = ControlPanel.empty;
+            buttonPreTime = Time.time;
+        }
     }
 
     private void colorPanelHandleOVRInput()
@@ -326,10 +343,10 @@ public class HandBehaviour : MonoBehaviour {
         switch (activeState)
         {
             case OptState.create:
-                CreateVoxels((Vector3i)rightPosition, colorMaterialSet, optRange / 2, -1);
+                CreateVoxels((Vector3i)rightPosition, colorMaterialSet, optRange / 2, activeShape);
                 break;
             case OptState.delete:
-                DestroyVoxels((Vector3i)rightPosition, optRange / 2, -1);
+                DestroyVoxels((Vector3i)rightPosition, optRange / 2, activeShape);
                 break;
             case OptState.smooth:
                 SmoothVoxels((Vector3i)rightPosition, optRange / 2);
@@ -446,92 +463,153 @@ public class HandBehaviour : MonoBehaviour {
     }
     */
 
-    private void DestroyVoxels(Vector3i Pos, int range, int smoothRange)
+    private void VoxelSetting(Vector3i Pos, MaterialSet materialSet, int range, OptShape optshape)
     {
         int xPos = Pos.x;
         int yPos = Pos.y;
         int zPos = Pos.z;
 
-        // Initialise outside the loop, but we'll use it later.
-        int rangeSquared = range * range;
-        MaterialSet emptyMaterialSet = new MaterialSet();
-
-        // Iterage over every voxel in a cubic region defined by the received position (the center) and
-        // the range. It is quite possible that this will be hundreds or even thousands of voxels.
-        for (int z = zPos - range; z < zPos + range; z++)
+        switch (optshape)
         {
-            for (int y = yPos - range; y < yPos + range; y++)
-            {
-                for (int x = xPos - range; x < xPos + range; x++)
+            case OptShape.cube:
+                for (int z = zPos - range; z < zPos + range; z++)
                 {
-                    // Compute the distance from the current voxel to the center of our explosion.
-                    int xDistance = x - xPos;
-                    int yDistance = y - yPos;
-                    int zDistance = z - zPos;
-
-                    // Working with squared distances avoids costly square root operations.
-                    int distSquared = xDistance * xDistance + yDistance * yDistance + zDistance * zDistance;
-
-                    // We're iterating over a cubic region, but we want our explosion to be spherical. Therefore 
-                    // we only further consider voxels which are within the required range of our explosion center. 
-                    // The corners of the cubic region we are iterating over will fail the following test.
-                    if (distSquared < rangeSquared)
+                    for (int y = yPos - range; y < yPos + range; y++)
                     {
-                        terrainVolume.data.SetVoxel(x, y, z, emptyMaterialSet);
+                        for (int x = xPos - range; x < xPos + range; x++)
+                        {
+                            terrainVolume.data.SetVoxel(x, y, z, materialSet);
+                        }
                     }
                 }
-            }
+                break;
+
+            case OptShape.sphere:
+                int rangeSphere = range * range;
+                for (int z = zPos - range; z < zPos + range; z++)
+                {
+                    for (int y = yPos - range; y < yPos + range; y++)
+                    {
+                        for (int x = xPos - range; x < xPos + range; x++)
+                        {
+                            int xDistance = x - xPos;
+                            int yDistance = y - yPos;
+                            int zDistance = z - zPos;
+
+                            int distSquared = xDistance * xDistance + yDistance * yDistance + zDistance * zDistance;
+                            if (distSquared < rangeSphere)
+                            {
+                                terrainVolume.data.SetVoxel(x, y, z, materialSet);
+                            }
+                        }
+                    }
+                }
+                TerrainVolumeEditor.BlurTerrainVolume(terrainVolume, new Region(xPos - range, yPos - range, zPos - range, xPos + range, yPos + range, zPos + range));
+                break;
+
+            case OptShape.cylinder:
+                int rangeCircle = range * range;
+                for (int z = zPos - range; z < zPos + range; z++)
+                {
+                    for (int y = yPos - range * 2; y < yPos + range * 2; y++)
+                    {
+                        for (int x = xPos - range; x < xPos + range; x++)
+                        {
+                            int xDistance = x - xPos;
+                            int yDistance = y - yPos;
+                            int zDistance = z - zPos;
+
+                            int distSquared = xDistance * xDistance + zDistance * zDistance;
+                            if (distSquared < rangeCircle)
+                            {
+                                terrainVolume.data.SetVoxel(x, y, z, materialSet);
+                            }
+                        }
+                    }
+                }
+                break;
+
+            case OptShape.capsule:
+                int rangeCapsule = range * range;
+                for (int z = zPos - range; z < zPos + range; z++)
+                {
+                    for (int y = yPos - range; y < yPos + range; y++)
+                    {
+                        for (int x = xPos - range; x < xPos + range; x++)
+                        {
+                            int xDistance = x - xPos;
+                            int yDistance = y - yPos;
+                            int zDistance = z - zPos;
+
+                            int distSquared = xDistance * xDistance + zDistance * zDistance;
+                            if (distSquared < rangeCapsule)
+                            {
+                                terrainVolume.data.SetVoxel(x, y, z, materialSet);
+                            }
+                        }
+                    }
+                }
+
+                int upxPos = Pos.x;
+                int upyPos = Pos.y + range;
+                int upzPos = Pos.z;
+                int rangeupSphere = range * range;
+                for (int z = upzPos - range; z < upzPos + range; z++)
+                {
+                    for (int y = upyPos; y < upyPos + range; y++)
+                    {
+                        for (int x = upxPos - range; x < upxPos + range; x++)
+                        {
+                            int xDistance = x - upxPos;
+                            int yDistance = y - upyPos;
+                            int zDistance = z - upzPos;
+
+                            int distSquared = xDistance * xDistance + yDistance * yDistance + zDistance * zDistance;
+                            if (distSquared < rangeupSphere)
+                            {
+                                terrainVolume.data.SetVoxel(x, y, z, materialSet);
+                            }
+                        }
+                    }
+                }
+
+                int downxPos = Pos.x;
+                int downyPos = Pos.y - range;
+                int downzPos = Pos.z;
+                int rangedownSphere = range * range;
+                for (int z = downzPos - range; z < downzPos + range; z++)
+                {
+                    for (int y = downyPos - range; y < downyPos; y++)
+                    {
+                        for (int x = downxPos - range; x < downxPos + range; x++)
+                        {
+                            int xDistance = x - downxPos;
+                            int yDistance = y - downyPos;
+                            int zDistance = z - downzPos;
+
+                            int distSquared = xDistance * xDistance + yDistance * yDistance + zDistance * zDistance;
+                            if (distSquared < rangedownSphere)
+                            {
+                                terrainVolume.data.SetVoxel(x, y, z, materialSet);
+                            }
+                        }
+                    }
+                }
+                TerrainVolumeEditor.BlurTerrainVolume(terrainVolume, new Region(xPos - range, yPos - range * 2, zPos - range, xPos + range, yPos + range * 2, zPos + range));
+                break;
         }
 
-        if(smoothRange > 0)
-        {
-            range += smoothRange;
-            TerrainVolumeEditor.BlurTerrainVolume(terrainVolume, new Region(xPos - range, yPos - range, zPos - range, xPos + range, yPos + range, zPos + range));
-        }
     }
 
-    private void CreateVoxels(Vector3i Pos, MaterialSet materialSet, int range, int smoothRange)
+    private void DestroyVoxels(Vector3i Pos, int range, OptShape optshape)
     {
-        int xPos = Pos.x;
-        int yPos = Pos.y;
-        int zPos = Pos.z;
+        MaterialSet emptyMaterialSet = new MaterialSet();
+        VoxelSetting(Pos, emptyMaterialSet, range, optshape);
+    }
 
-        // Initialise outside the loop, but we'll use it later.
-        int rangeSquared = range * range;
-
-        // Iterage over every voxel in a cubic region defined by the received position (the center) and
-        // the range. It is quite possible that this will be hundreds or even thousands of voxels.
-        for (int z = zPos - range; z < zPos + range; z++)
-        {
-            for (int y = yPos - range; y < yPos + range; y++)
-            {
-                for (int x = xPos - range; x < xPos + range; x++)
-                {
-                    // Compute the distance from the current voxel to the center of our explosion.
-                    int xDistance = x - xPos;
-                    int yDistance = y - yPos;
-                    int zDistance = z - zPos;
-
-                    // Working with squared distances avoids costly square root operations.
-                    int distSquared = xDistance * xDistance + yDistance * yDistance + zDistance * zDistance;
-
-                    // We're iterating over a cubic region, but we want our explosion to be spherical. Therefore 
-                    // we only further consider voxels which are within the required range of our explosion center. 
-                    // The corners of the cubic region we are iterating over will fail the following test.
-                    if (distSquared < rangeSquared)
-                    {
-                        terrainVolume.data.SetVoxel(x, y, z, materialSet);
-                    }
-                }
-            }
-        }
-
-        if(smoothRange > 0)
-        {
-            range += smoothRange;
-            TerrainVolumeEditor.BlurTerrainVolume(terrainVolume, new Region(xPos - range, yPos - range, zPos - range, xPos + range, yPos + range, zPos + range));
-        }
-
+    private void CreateVoxels(Vector3i Pos, MaterialSet materialSet, int range, OptShape optshape)
+    {
+        VoxelSetting(Pos, materialSet, range, optshape);
     }
 
     private void SmoothVoxels(Vector3i Pos, int range)

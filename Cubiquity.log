@@ -1,161 +1,81 @@
 ********************************************************************************
 *                             Initializing Cubiquity                           *
 ********************************************************************************
-[18:32:51, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:32:58, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:33:02, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:33:07, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:33:11, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:33:43, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:33:58, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:34:41, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:35:16, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
-[18:35:16, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:35:47, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:35:50, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:36:59, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:37:08, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:39:15, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:39:27, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:39:43, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:39:50, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:41:05, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:41:14, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:41:31, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:41:42, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:42:06, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:42:18, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
-[18:42:18, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:42:25, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:42:42, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
-[18:42:43, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:43:16, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:43:29, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:46:10, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:46:19, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:47:03, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:47:11, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:47:54, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:48:02, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:48:44, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:51:34, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:51:37, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:51:46, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:52:01, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:52:08, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:52:25, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:52:30, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:53:16, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:53:41, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:54:04, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:54:23, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:54:28, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:55:06, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:55:12, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:55:30, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:55:39, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
-[18:55:39, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:56:00, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:56:08, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:56:20, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:57:26, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:57:34, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:57:42, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:57:47, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:58:00, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:58:17, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:58:36, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[18:58:38, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:01:18, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:01:20, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
-[19:01:21, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:02:07, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:02:10, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:02:57, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:03:02, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:03:27, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:03:32, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:04:01, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:04:30, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:05:04, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:05:22, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:06:03, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:06:18, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:13:30, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:13:58, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
-[19:13:59, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:19:59, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:20:51, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
-[19:20:51, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:22:18, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:23:58, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:24:49, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
-[19:24:50, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:26:05, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:28:12, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:28:30, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:29:20, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:30:09, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:30:37, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:30:51, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:32:28, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:32:35, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:32:57, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:33:08, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:33:23, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:33:43, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:37:33, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:38:08, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
-[19:38:09, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:43:37, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:44:15, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
-[19:44:15, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:48:13, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:49:27, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
-[19:49:28, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:51:11, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:51:20, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
-[19:51:20, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:51:54, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:52:05, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
-[19:52:05, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:52:46, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:52:55, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
-[19:52:55, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:53:24, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:53:35, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
-[19:53:35, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:53:50, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:54:10, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
-[19:54:11, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:54:25, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:54:39, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
-[19:54:40, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:54:56, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:55:09, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
-[19:55:10, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:55:23, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:55:35, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
-[19:55:36, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:55:52, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:56:05, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
-[19:56:06, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:56:17, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:56:37, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
-[19:56:38, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:57:01, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:57:13, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
-[19:57:14, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:57:30, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:57:35, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
-[19:57:42, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:58:04, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:58:08, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
-[19:58:25, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:58:48, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:58:52, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
-[19:58:57, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[19:59:28, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[09:36:59, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[09:39:30, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[09:40:36, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
+[09:40:37, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[09:42:50, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[09:43:13, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[09:43:52, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[09:44:09, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[09:46:00, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[09:46:43, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
+[09:46:44, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[09:47:56, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[09:48:19, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
+[09:48:20, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[10:09:55, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[10:10:31, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
+[10:10:32, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[10:17:01, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[10:17:28, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
+[10:17:29, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[10:18:35, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[10:19:13, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
+[10:19:14, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[10:21:45, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[10:22:01, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
+[10:22:01, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[10:22:04, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[10:22:26, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
+[10:22:27, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[10:28:09, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[10:28:31, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
+[10:28:32, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[10:29:24, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[10:29:48, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
+[10:29:49, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[10:30:49, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[10:32:31, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
+[10:32:32, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[10:48:21, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[10:48:32, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
+[10:48:33, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[10:49:10, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[10:49:17, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[10:50:16, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[10:50:19, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[10:54:11, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[10:54:13, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[10:54:31, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
+[10:54:32, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[10:56:13, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[11:01:52, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[11:01:58, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[11:02:10, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[11:02:24, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[11:02:43, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[11:05:46, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
+[11:05:46, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[11:11:46, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[11:12:12, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
+[11:12:13, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[11:12:34, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[11:12:58, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
+[11:12:59, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[11:15:44, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[11:16:20, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
+[11:16:20, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[11:16:33, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[11:17:10, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
+[11:17:10, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[11:19:51, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[11:20:35, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
+[11:20:36, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[11:20:53, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[11:21:27, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
+[11:21:28, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
 ********************************************************************************
 *                             Shutting down Cubiquity                          *
 ********************************************************************************

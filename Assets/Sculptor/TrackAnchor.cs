@@ -26,7 +26,10 @@ public class TrackAnchor : MonoBehaviour {
         handBehaviour = GetComponent<HandBehaviour>();
 
         rightHand = GameObject.CreatePrimitive(PrimitiveType.Cube);
-
+        Color tempcolor = rightHand.transform.GetComponent<Renderer>().material.color;
+        tempcolor.a = 0.3f;
+        rightHand.transform.GetComponent<Renderer>().material.color = tempcolor;
+        rightHand.transform.GetComponent<Renderer>().material.shader = Shader.Find("Transparent/Diffuse");
     }
 	
 	// Update is called once per frame
@@ -56,11 +59,17 @@ public class TrackAnchor : MonoBehaviour {
                     rightHand = GameObject.CreatePrimitive(PrimitiveType.Capsule);
                     break;
             }
+            Color tempcolor = rightHand.transform.GetComponent<Renderer>().material.color;
+            tempcolor.a = 0.3f;
+            rightHand.transform.GetComponent<Renderer>().material.color = tempcolor;
+            rightHand.transform.GetComponent<Renderer>().material.shader = Shader.Find("Transparent/Diffuse");
             activeShape = nowShape;
         }
 
         rightHand.transform.position = rightHandAnchor.transform.position;
         rightHand.transform.localScale = VoxelWorldScale * optRange;
+
+
     }
 
 
