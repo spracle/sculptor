@@ -83,6 +83,9 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>Library\UnityAssemblies\SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
+    <Reference Include="System.Drawing">
+      <HintPath>Assets\CapturePanorama\Managed Plugins\System.Drawing.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="SculptorVR.CSharp.csproj">
@@ -112,6 +115,11 @@
     <Compile Include="Assets\OVR\Moonlight\Editor\OVRMoonlightLoader.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\CapturePanorama\Compute Shaders\ConvertPanoramaShader.compute" />
+    <None Include="Assets\CapturePanorama\Compute Shaders\ConvertPanoramaStereoShader.compute" />
+    <None Include="Assets\CapturePanorama\Compute Shaders\TextureToBufferShader.compute" />
+    <None Include="Assets\CapturePanorama\README.txt" />
+    <None Include="Assets\CapturePanorama\Shaders\Unlit Transparent HUD.shader" />
     <None Include="Assets\Cubiquity\Documentation\0_ReadMe.txt" />
     <None Include="Assets\Cubiquity\Examples\DataForImporting\Readme.txt" />
     <None Include="Assets\Cubiquity\Examples\ImportedVolumes\Readme.txt" />

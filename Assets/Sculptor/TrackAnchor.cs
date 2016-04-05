@@ -17,6 +17,8 @@ public class TrackAnchor : MonoBehaviour {
     private int optRange;
     private OptShape activeShape, nowShape;
 
+    private Vector3 rotateEuler = new Vector3(0, 0, 0);
+
     // Use this for initialization
     void Start () {
 
@@ -68,6 +70,9 @@ public class TrackAnchor : MonoBehaviour {
 
         rightHand.transform.position = rightHandAnchor.transform.position;
         rightHand.transform.localScale = VoxelWorldScale * optRange;
+
+        rotateEuler = handBehaviour.GetRotateEuler();
+        rightHand.transform.rotation = Quaternion.Euler(rotateEuler);
 
 
     }

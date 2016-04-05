@@ -34,6 +34,8 @@ public class HandBehaviour : MonoBehaviour {
     private float buttonTimeControl = 0.3f;
     private float markTime;
 
+    private Vector3 rotateEuler;
+
     // -- OVRInput Info
 
     // Axis2D
@@ -100,6 +102,8 @@ public class HandBehaviour : MonoBehaviour {
 
         markTime = Time.time;
         activeInfoPanel = InfoPanel.start;
+
+        rotateEuler = new Vector3(0, 0, 0);
     }
 	
 	// Update is called once per frame
@@ -149,6 +153,24 @@ public class HandBehaviour : MonoBehaviour {
             StateHandleOVRInput();
             buttonPreTime = Time.time;
         }
+
+        if (Axis2D_RB_Left)
+        {
+            rotateEuler.x++;
+        }
+        if (Axis2D_RB_Right)
+        {
+            rotateEuler.x--;
+        }
+        if (Axis2D_RB_Up)
+        {
+            rotateEuler.z++;
+        }
+        if (Axis2D_RB_Down)
+        {
+            rotateEuler.z--;
+        }
+
     }
 
     private void mainPanelHandleOVRInput()
@@ -478,7 +500,9 @@ public class HandBehaviour : MonoBehaviour {
                     {
                         for (int x = xPos - range; x < xPos + range; x++)
                         {
-                            terrainVolume.data.SetVoxel(x, y, z, materialSet);
+                            Vector3 temp = RotatePointAroundPivot(new Vector3(x, y, z),new Vector3(xPos, yPos, zPos), rotateEuler);
+                            Vector3i tempi = (Vector3i)(temp);
+                            terrainVolume.data.SetVoxel(tempi.x, tempi.y, tempi.z, materialSet);
                         }
                     }
                 }
@@ -499,7 +523,9 @@ public class HandBehaviour : MonoBehaviour {
                             int distSquared = xDistance * xDistance + yDistance * yDistance + zDistance * zDistance;
                             if (distSquared < rangeSphere)
                             {
-                                terrainVolume.data.SetVoxel(x, y, z, materialSet);
+                                Vector3 temp = RotatePointAroundPivot(new Vector3(x, y, z), new Vector3(xPos, yPos, zPos), rotateEuler);
+                                Vector3i tempi = (Vector3i)(temp);
+                                terrainVolume.data.SetVoxel(tempi.x, tempi.y, tempi.z, materialSet);
                             }
                         }
                     }
@@ -522,7 +548,9 @@ public class HandBehaviour : MonoBehaviour {
                             int distSquared = xDistance * xDistance + zDistance * zDistance;
                             if (distSquared < rangeCircle)
                             {
-                                terrainVolume.data.SetVoxel(x, y, z, materialSet);
+                                Vector3 temp = RotatePointAroundPivot(new Vector3(x, y, z), new Vector3(xPos, yPos, zPos), rotateEuler);
+                                Vector3i tempi = (Vector3i)(temp);
+                                terrainVolume.data.SetVoxel(tempi.x, tempi.y, tempi.z, materialSet);
                             }
                         }
                     }
@@ -544,7 +572,9 @@ public class HandBehaviour : MonoBehaviour {
                             int distSquared = xDistance * xDistance + zDistance * zDistance;
                             if (distSquared < rangeCapsule)
                             {
-                                terrainVolume.data.SetVoxel(x, y, z, materialSet);
+                                Vector3 temp = RotatePointAroundPivot(new Vector3(x, y, z), new Vector3(xPos, yPos, zPos), rotateEuler);
+                                Vector3i tempi = (Vector3i)(temp);
+                                terrainVolume.data.SetVoxel(tempi.x, tempi.y, tempi.z, materialSet);
                             }
                         }
                     }
@@ -567,7 +597,9 @@ public class HandBehaviour : MonoBehaviour {
                             int distSquared = xDistance * xDistance + yDistance * yDistance + zDistance * zDistance;
                             if (distSquared < rangeupSphere)
                             {
-                                terrainVolume.data.SetVoxel(x, y, z, materialSet);
+                                Vector3 temp = RotatePointAroundPivot(new Vector3(x, y, z), new Vector3(xPos, yPos, zPos), rotateEuler);
+                                Vector3i tempi = (Vector3i)(temp);
+                                terrainVolume.data.SetVoxel(tempi.x, tempi.y, tempi.z, materialSet);
                             }
                         }
                     }
@@ -590,7 +622,9 @@ public class HandBehaviour : MonoBehaviour {
                             int distSquared = xDistance * xDistance + yDistance * yDistance + zDistance * zDistance;
                             if (distSquared < rangedownSphere)
                             {
-                                terrainVolume.data.SetVoxel(x, y, z, materialSet);
+                                Vector3 temp = RotatePointAroundPivot(new Vector3(x, y, z), new Vector3(xPos, yPos, zPos), rotateEuler);
+                                Vector3i tempi = (Vector3i)(temp);
+                                terrainVolume.data.SetVoxel(tempi.x, tempi.y, tempi.z, materialSet);
                             }
                         }
                     }
@@ -633,6 +667,14 @@ public class HandBehaviour : MonoBehaviour {
         Debug.Log("Voxel database has been saved.");
     }
 
+    public Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Vector3 angles)
+    {
+        Vector3 dir = point - pivot; // get point direction relative to pivot
+        dir = Quaternion.Euler(angles) * dir; // rotate it
+        point = dir + pivot; // calculate rotated point
+        return point; // return it
+    }
+
     public int GetOptRange()
     {
         return optRange;
@@ -656,6 +698,11 @@ public class HandBehaviour : MonoBehaviour {
     public OptShape GetActiveShape()
     {
         return activeShape;
+    }
+
+    public Vector3 GetRotateEuler()
+    {
+        return rotateEuler;
     }
 
 }
