@@ -14,6 +14,8 @@ public class HandBehaviour : MonoBehaviour {
     public GameObject rightHandAnchor = null;
     public GameObject BasicProceduralVolume = null;
 
+    private TrackAnchor trackAnchor;
+
     private TerrainVolume terrainVolume;
 
     private MaterialSet emptyMaterialSet;
@@ -22,7 +24,10 @@ public class HandBehaviour : MonoBehaviour {
     private Vector3 VoxelWorldScale = new Vector3(1, 1, 1);
     private Vector3 leftPosition = new Vector3(0, 0, 0);
     private Vector3 rightPosition = new Vector3(0, 0, 0);
-    
+
+    private Vector3 rightChildPosition = new Vector3(0, 0, 0);
+    private Vector3 rightChildPositionScaled = new Vector3(0, 0, 0);
+
     private int optRange = 4;
 
     private ControlPanel activePanel;
@@ -35,6 +40,11 @@ public class HandBehaviour : MonoBehaviour {
     private float markTime;
 
     private Vector3 rotateEuler;
+
+    private int HsvSliderOrBox; // 0 is slider, 1 is box.
+    private Vector2 HsvAxis2D = new Vector2(0, 0);
+
+    private Vector3 childPos = new Vector3(0, 0, 0);
 
     // -- OVRInput Info
 
@@ -83,6 +93,8 @@ public class HandBehaviour : MonoBehaviour {
 
         VoxelWorldScale = terrainVolume.transform.localScale;
 
+        trackAnchor = GetComponent<TrackAnchor>();
+
         // empty
         emptyMaterialSet = new MaterialSet();
         emptyMaterialSet.weights[3] = 0;
@@ -104,6 +116,7 @@ public class HandBehaviour : MonoBehaviour {
         activeInfoPanel = InfoPanel.start;
 
         rotateEuler = new Vector3(0, 0, 0);
+
     }
 	
 	// Update is called once per frame
@@ -122,9 +135,13 @@ public class HandBehaviour : MonoBehaviour {
             markTime = Time.time;
         }
 
-
         leftPosition = (new Vector3(leftHandAnchor.transform.position.x / VoxelWorldScale.x, leftHandAnchor.transform.position.y / VoxelWorldScale.y, leftHandAnchor.transform.position.z / VoxelWorldScale.z));
         rightPosition = (new Vector3(rightHandAnchor.transform.position.x / VoxelWorldScale.x, rightHandAnchor.transform.position.y / VoxelWorldScale.y, rightHandAnchor.transform.position.z / VoxelWorldScale.z));
+
+        rightChildPosition = trackAnchor.GetChildPosition();
+        rightChildPositionScaled = (new Vector3(rightChildPosition.x / VoxelWorldScale.x, rightChildPosition.y / VoxelWorldScale.y, rightChildPosition.z / VoxelWorldScale.z));
+
+        rotateEuler = rightHandAnchor.transform.rotation.eulerAngles;
 
         //Debug.Log(leftHandAnchor.transform.position);
 
@@ -143,32 +160,20 @@ public class HandBehaviour : MonoBehaviour {
 
     private void emptyPanelHandleOVRInput()
     {
-        if (Axis1D_RB > 0 && Axis1D_RT > 0 && optRange < 10 && (Time.time - buttonPreTime) > buttonTimeControl / 5)
+        if (Axis1D_RB > 0.5f && Axis1D_RT > 0.5f && optRange < 10 && (Time.time - buttonPreTime) > buttonTimeControl / 5)
         {
             StateHandleOVRInput();
             buttonPreTime = Time.time;
         }
-        else if (Axis1D_RB > 0 && (Time.time - buttonPreTime) > buttonTimeControl)
+        else if (Axis1D_RB > 0.5f && (Time.time - buttonPreTime) > buttonTimeControl)
         {
             StateHandleOVRInput();
             buttonPreTime = Time.time;
         }
 
-        if (Axis2D_RB_Left)
+        if (Axis2D_R.y >= 0)
         {
-            rotateEuler.x++;
-        }
-        if (Axis2D_RB_Right)
-        {
-            rotateEuler.x--;
-        }
-        if (Axis2D_RB_Up)
-        {
-            rotateEuler.z++;
-        }
-        if (Axis2D_RB_Down)
-        {
-            rotateEuler.z--;
+            childPos.z = Axis2D_R.y * 20;
         }
 
     }
@@ -252,11 +257,13 @@ public class HandBehaviour : MonoBehaviour {
         }
         if (Axis2D_RB_Up && (Time.time - buttonPreTime) > buttonTimeControl)
         {
+            childPos.z = 0;
             optRange += 2;
             buttonPreTime = Time.time;
         }
         if (Axis2D_RB_Down && (Time.time - buttonPreTime) > buttonTimeControl)
         {
+            childPos.z = 0;
             optRange -= 2;
             if (optRange < 2){
                 optRange = 2;
@@ -356,7 +363,7 @@ public class HandBehaviour : MonoBehaviour {
                 break;
         }
 
-        Debug.Log("activePanel: " + activePanel + " activeState: " + activeState);
+        //Debug.Log("activePanel: " + activePanel + " activeState: " + activeState);
 
     }
 
@@ -365,13 +372,13 @@ public class HandBehaviour : MonoBehaviour {
         switch (activeState)
         {
             case OptState.create:
-                CreateVoxels((Vector3i)rightPosition, colorMaterialSet, optRange / 2, activeShape);
+                CreateVoxels((Vector3i)rightChildPositionScaled, colorMaterialSet, optRange / 2, activeShape);
                 break;
             case OptState.delete:
-                DestroyVoxels((Vector3i)rightPosition, optRange / 2, activeShape);
+                DestroyVoxels((Vector3i)rightChildPositionScaled, optRange / 2, activeShape);
                 break;
             case OptState.smooth:
-                SmoothVoxels((Vector3i)rightPosition, optRange / 2);
+                SmoothVoxels((Vector3i)rightChildPositionScaled, optRange / 2);
                 break;
         }
     }
@@ -700,9 +707,15 @@ public class HandBehaviour : MonoBehaviour {
         return activeShape;
     }
 
-    public Vector3 GetRotateEuler()
+    public float GetChildPosZ()
     {
-        return rotateEuler;
+        return childPos.z;
     }
+
+    public Vector2 GetHSVAxis2D()
+    {
+        return HsvAxis2D;
+    }
+
 
 }

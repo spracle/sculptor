@@ -117,6 +117,13 @@
     <Compile Include="Assets\Cubiquity\Scripts\VolumeCollider.cs" />
     <Compile Include="Assets\Cubiquity\Scripts\VolumeData.cs" />
     <Compile Include="Assets\Cubiquity\Scripts\VolumeRenderer.cs" />
+    <Compile Include="Assets\HSVPicker\ColorPickerTester.cs" />
+    <Compile Include="Assets\HSVPicker\HSVPicker.cs" />
+    <Compile Include="Assets\HSVPicker\HSVSliderEvent.cs" />
+    <Compile Include="Assets\HSVPicker\HSVUtil.cs" />
+    <Compile Include="Assets\HSVPicker\HexRGB.cs" />
+    <Compile Include="Assets\HSVPicker\HsvBoxSelector.cs" />
+    <Compile Include="Assets\HSVPicker\HsvSliderPicker.cs" />
     <Compile Include="Assets\LOOM Framework\Examples\Scripts\FlockingMassive\Cannon.cs" />
     <Compile Include="Assets\LOOM Framework\Examples\Scripts\FlockingMassive\FlockHelper.cs" />
     <Compile Include="Assets\LOOM Framework\Examples\Scripts\FlockingMassive\HUDmanager.cs" />
