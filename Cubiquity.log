@@ -1,27 +1,286 @@
 ********************************************************************************
 *                             Initializing Cubiquity                           *
 ********************************************************************************
-[14:17:05, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[14:17:06, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[14:19:43, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[15:11:27, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[15:14:46, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[15:15:26, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
-[15:15:27, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[15:16:01, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[15:16:25, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[15:18:42, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[15:18:59, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
-[15:19:00, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[15:24:50, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[15:26:33, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
-[15:26:34, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[15:27:15, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[15:27:24, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
-[15:27:25, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[15:28:13, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
-[15:30:23, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
-[15:30:24, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[15:31:59, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[15:31:59, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[15:43:02, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[15:43:12, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[15:43:27, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
+[15:43:28, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[15:46:59, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[15:47:53, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
+[15:47:53, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[15:51:10, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[15:51:40, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[15:57:02, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[15:58:42, Error  ]: Volume depth must be greater than zero.
+[15:58:42, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:42, Error  ]: Volume depth must be greater than zero.
+[15:58:42, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:42, Error  ]: Volume depth must be greater than zero.
+[15:58:42, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:42, Error  ]: Volume depth must be greater than zero.
+[15:58:42, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:42, Error  ]: Volume depth must be greater than zero.
+[15:58:42, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:42, Error  ]: Volume depth must be greater than zero.
+[15:58:42, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:42, Error  ]: Volume depth must be greater than zero.
+[15:58:42, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:42, Error  ]: Volume depth must be greater than zero.
+[15:58:42, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:42, Error  ]: Volume depth must be greater than zero.
+[15:58:42, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:42, Error  ]: Volume depth must be greater than zero.
+[15:58:42, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:42, Error  ]: Volume depth must be greater than zero.
+[15:58:42, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:42, Error  ]: Volume depth must be greater than zero.
+[15:58:42, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:42, Error  ]: Volume depth must be greater than zero.
+[15:58:42, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:42, Error  ]: Volume depth must be greater than zero.
+[15:58:42, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:42, Error  ]: Volume depth must be greater than zero.
+[15:58:42, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:42, Error  ]: Volume depth must be greater than zero.
+[15:58:42, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:42, Error  ]: Volume depth must be greater than zero.
+[15:58:42, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:42, Error  ]: Volume depth must be greater than zero.
+[15:58:42, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:42, Error  ]: Volume depth must be greater than zero.
+[15:58:42, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:42, Error  ]: Volume depth must be greater than zero.
+[15:58:42, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:42, Error  ]: Volume depth must be greater than zero.
+[15:58:42, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:45, Error  ]: Volume depth must be greater than zero.
+[15:58:45, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:45, Error  ]: Volume depth must be greater than zero.
+[15:58:45, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:45, Error  ]: Volume depth must be greater than zero.
+[15:58:45, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:45, Error  ]: Volume depth must be greater than zero.
+[15:58:45, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:45, Error  ]: Volume depth must be greater than zero.
+[15:58:45, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:45, Error  ]: Volume depth must be greater than zero.
+[15:58:45, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:45, Error  ]: Volume depth must be greater than zero.
+[15:58:45, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:45, Error  ]: Volume depth must be greater than zero.
+[15:58:45, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:46, Error  ]: Volume depth must be greater than zero.
+[15:58:46, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:56, Error  ]: Volume depth must be greater than zero.
+[15:58:56, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:57, Error  ]: Volume depth must be greater than zero.
+[15:58:57, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:57, Error  ]: Volume depth must be greater than zero.
+[15:58:57, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:57, Error  ]: Volume depth must be greater than zero.
+[15:58:57, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:57, Error  ]: Volume depth must be greater than zero.
+[15:58:57, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:57, Error  ]: Volume depth must be greater than zero.
+[15:58:57, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:57, Error  ]: Volume depth must be greater than zero.
+[15:58:57, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:57, Error  ]: Volume depth must be greater than zero.
+[15:58:57, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:57, Error  ]: Volume depth must be greater than zero.
+[15:58:57, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:58:57, Error  ]: Volume depth must be greater than zero.
+[15:58:57, Error  ]: Caught 'invalid_argument' at C interface. Message reads: "Volume depth must be greater than zero."
+[15:59:05, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
+[15:59:06, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[16:12:24, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[16:24:20, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[16:25:08, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[16:51:01, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[16:51:19, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
+[16:51:20, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[16:51:32, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[16:52:19, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
+[16:52:20, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[16:55:30, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
+[16:56:27, Info   ]: Resizing compressed data buffer to 288486bytes. This should only happen once
+[16:56:28, Info   ]: Creating voxel database from 'D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_49537287.vdb'
 ********************************************************************************
 *                             Shutting down Cubiquity                          *
 ********************************************************************************

@@ -30,6 +30,9 @@ public class TrackAnchor : MonoBehaviour {
     private Vector3 leftChildPosition = new Vector3(0, 0, 0); // change z
     private Vector3 rightChildPosition = new Vector3(0, 0, 0); // change z
 
+    private GameObject twiceHand;
+    private bool openTwoHandDraw = false;
+
     // Use this for initialization
     void Start () {
 
@@ -65,6 +68,16 @@ public class TrackAnchor : MonoBehaviour {
         materialChildColor.a = 0.3f;
         leftHandChild.transform.GetComponent<Renderer>().material.color = materialChildColor;
         leftHandChild.transform.GetComponent<Renderer>().material.shader = Shader.Find("Transparent/Diffuse");
+
+        twiceHand = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        materialColor = twiceHand.transform.GetComponent<Renderer>().material.color;
+        materialColor.a = 0.5f;
+        twiceHand.transform.GetComponent<Renderer>().material.color = materialColor;
+        twiceHand.transform.GetComponent<Renderer>().material.shader = Shader.Find("Transparent/Diffuse");
+
+        leftHandChild.SetActive(true);
+        rightHandChild.SetActive(true);
+        twiceHand.SetActive(false);
     }
 	
 	// Update is called once per frame
@@ -80,6 +93,8 @@ public class TrackAnchor : MonoBehaviour {
                 case OptShape.cube:
                     UnityEngine.Object.Destroy(rightHand.gameObject);
                     UnityEngine.Object.Destroy(rightHandChild.gameObject);
+                    UnityEngine.Object.Destroy(leftHand.gameObject);
+                    UnityEngine.Object.Destroy(leftHandChild.gameObject);
                     leftHand = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     leftHandChild = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     rightHand = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -88,6 +103,8 @@ public class TrackAnchor : MonoBehaviour {
                 case OptShape.sphere:
                     UnityEngine.Object.Destroy(rightHand.gameObject);
                     UnityEngine.Object.Destroy(rightHandChild.gameObject);
+                    UnityEngine.Object.Destroy(leftHand.gameObject);
+                    UnityEngine.Object.Destroy(leftHandChild.gameObject);
                     leftHand = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                     leftHandChild = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                     rightHand = GameObject.CreatePrimitive(PrimitiveType.Sphere);
@@ -96,6 +113,8 @@ public class TrackAnchor : MonoBehaviour {
                 case OptShape.cylinder:
                     UnityEngine.Object.Destroy(rightHand.gameObject);
                     UnityEngine.Object.Destroy(rightHandChild.gameObject);
+                    UnityEngine.Object.Destroy(leftHand.gameObject);
+                    UnityEngine.Object.Destroy(leftHandChild.gameObject);
                     leftHand = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
                     leftHandChild = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
                     rightHand = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
@@ -104,6 +123,8 @@ public class TrackAnchor : MonoBehaviour {
                 case OptShape.capsule:
                     UnityEngine.Object.Destroy(rightHand.gameObject);
                     UnityEngine.Object.Destroy(rightHandChild.gameObject);
+                    UnityEngine.Object.Destroy(leftHand.gameObject);
+                    UnityEngine.Object.Destroy(leftHandChild.gameObject);
                     leftHand = GameObject.CreatePrimitive(PrimitiveType.Capsule);
                     leftHandChild = GameObject.CreatePrimitive(PrimitiveType.Capsule);
                     rightHand = GameObject.CreatePrimitive(PrimitiveType.Capsule);
@@ -151,6 +172,30 @@ public class TrackAnchor : MonoBehaviour {
         rightHand.transform.position = rightHandAnchor.transform.position;
         rightHand.transform.rotation = rightHandAnchor.transform.rotation;
         rightHand.transform.localScale = VoxelWorldScale * optRange;
+
+        Vector3 temp = rightHandAnchor.transform.position - leftHandAnchor.transform.position;
+        twiceHand.transform.position = leftHandAnchor.transform.position + temp / 2;
+        twiceHand.transform.localScale = new Vector3(System.Math.Abs(temp.x), System.Math.Abs(temp.y), System.Math.Abs(temp.z));
+
+        // twice hand
+        bool tempOpenTwoHandDraw = handBehaviour.GetOpenTwoHandDraw();
+        if (tempOpenTwoHandDraw != openTwoHandDraw)
+        {
+            if (tempOpenTwoHandDraw)
+            {
+                leftHandChild.SetActive(false);
+                rightHandChild.SetActive(false);
+                twiceHand.SetActive(true);
+            }
+            else
+            {
+                leftHandChild.SetActive(true);
+                rightHandChild.SetActive(true);
+                twiceHand.SetActive(false);
+            }
+        }
+        openTwoHandDraw = tempOpenTwoHandDraw;
+
     }
 
     public Vector3 GetRightChildPosition()
@@ -161,6 +206,16 @@ public class TrackAnchor : MonoBehaviour {
     public Vector3 GetLeftChildPosition()
     {
         return leftHandChild.transform.position;
+    }
+
+    public Vector3 GetTwiceChildPosition()
+    {
+        return twiceHand.transform.position;
+    }
+
+    public Vector3 GetTwiceChildLocalScale()
+    {
+        return twiceHand.transform.localScale;
     }
 
 }

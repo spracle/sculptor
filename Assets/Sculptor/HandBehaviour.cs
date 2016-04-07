@@ -33,19 +33,24 @@ public class HandBehaviour : MonoBehaviour {
     private Vector3 leftChildPosition = new Vector3(0, 0, 0);
     private Vector3 leftChildPositionScaled = new Vector3(0, 0, 0);
 
-    private int optRange = 4;
+    private Vector3 twiceChildPosition = new Vector3(0, 0, 0);
+    private Vector3 twiceChildPositionScale = new Vector3(0, 0, 0);
 
     private ControlPanel activePanel;
     private InfoPanel activeInfoPanel;
     private OptState activeState;
     private OptShape activeShape;
 
+    private DrawPos activeDrawPos;
+
     private float buttonPreTime = 0.0f;
     private float buttonTimeControl = 0.3f;
     private float markTime;
 
+    private int optRange = 4;
     private Vector3 tempDrawPosScaled;
     private Vector3 tempDrawRotate;
+    private Vector3 tempDrawScale;
 
     private Vector3 rightRotateEuler;
     private Vector3 leftRotateEuler;
@@ -56,6 +61,8 @@ public class HandBehaviour : MonoBehaviour {
 
     private Vector3 leftChildPos = new Vector3(0, 0, 0);
     private Vector3 rightChildPos = new Vector3(0, 0, 0);
+
+    private bool openTwoHandDraw = false;
 
     // -- OVRInput Info
 
@@ -155,6 +162,9 @@ public class HandBehaviour : MonoBehaviour {
         rightChildPosition = trackAnchor.GetRightChildPosition();
         rightChildPositionScaled = (new Vector3(rightChildPosition.x / VoxelWorldScale.x, rightChildPosition.y / VoxelWorldScale.y, rightChildPosition.z / VoxelWorldScale.z));
 
+        twiceChildPosition = trackAnchor.GetTwiceChildPosition();
+        twiceChildPositionScale = (new Vector3(twiceChildPosition.x / VoxelWorldScale.x, twiceChildPosition.y / VoxelWorldScale.y, twiceChildPosition.z / VoxelWorldScale.z));
+
         rightRotateEuler = rightHandAnchor.transform.rotation.eulerAngles;
         leftRotateEuler = leftHandAnchor.transform.rotation.eulerAngles;
 
@@ -177,58 +187,71 @@ public class HandBehaviour : MonoBehaviour {
 
     private void emptyPanelHandleOVRInput()
     {
-        if (Axis1D_LB > 0.5f && Axis1D_LT > 0.5f && optRange < 10 && (Time.time - buttonPreTime) > buttonTimeControl / 5)
-        {
-            StateHandleOVRInput(DrawPos.left);
-            buttonPreTime = Time.time;
-        }
-        else if (Axis1D_LB > 0.5f && (Time.time - buttonPreTime) > buttonTimeControl)
-        {
-            StateHandleOVRInput(DrawPos.left);
-            buttonPreTime = Time.time;
-        }
 
-        if (Axis1D_RB > 0.5f && Axis1D_RT > 0.5f && optRange < 10 && (Time.time - buttonPreTime) > buttonTimeControl / 5)
+        if (Axis1D_LT > 0 && Axis1D_RT > 0)
         {
-            StateHandleOVRInput(DrawPos.right);
-            buttonPreTime = Time.time;
+            openTwoHandDraw = true;
+            if ( (Axis1D_LB > 0 || Axis1D_RB > 0) && (Time.time - buttonPreTime) > buttonTimeControl)
+            {
+                StateHandleOVRInput(DrawPos.twice);
+            }
         }
-        else if (Axis1D_RB > 0.5f && (Time.time - buttonPreTime) > buttonTimeControl)
+        else
         {
-            StateHandleOVRInput(DrawPos.right);
-            buttonPreTime = Time.time;
-        }
+            openTwoHandDraw = false;
+            if (Axis1D_LB > 0 && Axis1D_LT > 0 && optRange < 10 && (Time.time - buttonPreTime) > buttonTimeControl / 5)
+            {
+                StateHandleOVRInput(DrawPos.left);
+                buttonPreTime = Time.time;
+            }
+            else if (Axis1D_LB > 0 && (Time.time - buttonPreTime) > buttonTimeControl)
+            {
+                StateHandleOVRInput(DrawPos.left);
+                buttonPreTime = Time.time;
+            }
 
-        if (Axis2D_L.y >= 0)
-        {
-            leftChildPos.z = Axis2D_L.y * 20;
-        }
+            if (Axis1D_RB > 0 && Axis1D_RT > 0 && optRange < 10 && (Time.time - buttonPreTime) > buttonTimeControl / 5)
+            {
+                StateHandleOVRInput(DrawPos.right);
+                buttonPreTime = Time.time;
+            }
+            else if (Axis1D_RB > 0 && (Time.time - buttonPreTime) > buttonTimeControl)
+            {
+                StateHandleOVRInput(DrawPos.right);
+                buttonPreTime = Time.time;
+            }
 
-        if (Axis2D_R.y >= 0)
-        {
-            rightChildPos.z = Axis2D_R.y * 20;
+            if (Axis2D_L.y >= 0)
+            {
+                leftChildPos.z = Axis2D_L.y * 20;
+            }
+
+            if (Axis2D_R.y >= 0)
+            {
+                rightChildPos.z = Axis2D_R.y * 20;
+            }
         }
 
     }
 
     private void mainPanelHandleOVRInput()
     {
-        if (Axis2D_RB_Left && (Time.time - buttonPreTime) > buttonTimeControl)
+        if ((Axis2D_RB_Left || Axis2D_LB_Left) && (Time.time - buttonPreTime) > buttonTimeControl)
         {
             activePanel = ControlPanel.shape;
             buttonPreTime = Time.time;
         }
-        if (Axis2D_RB_Right && (Time.time - buttonPreTime) > buttonTimeControl)
+        if ((Axis2D_RB_Right || Axis2D_LB_Right) && (Time.time - buttonPreTime) > buttonTimeControl)
         {
             activePanel = ControlPanel.color;
             buttonPreTime = Time.time;
         }
-        if (Axis2D_RB_Up && (Time.time - buttonPreTime) > buttonTimeControl)
+        if ((Axis2D_RB_Up || Axis2D_LB_Up) && (Time.time - buttonPreTime) > buttonTimeControl)
         {
             activePanel = ControlPanel.state;
             buttonPreTime = Time.time;
         }
-        if ((Axis2D_RB_Down || Axis2D_RB_Center) && (Time.time - buttonPreTime) > buttonTimeControl)
+        if (((Axis2D_RB_Down || Axis2D_LB_Down) || (Axis2D_RB_Center || Axis2D_LB_Center)) && (Time.time - buttonPreTime) > buttonTimeControl)
         {
             activePanel = ControlPanel.empty;
             buttonPreTime = Time.time;
@@ -237,25 +260,25 @@ public class HandBehaviour : MonoBehaviour {
 
     private void statePanelHandleOVRInput()
     {
-        if (Axis2D_RB_Left && (Time.time - buttonPreTime) > buttonTimeControl)
+        if ((Axis2D_RB_Left || Axis2D_LB_Left) && (Time.time - buttonPreTime) > buttonTimeControl)
         {
             activeState = OptState.delete;
             activePanel = ControlPanel.empty;
             buttonPreTime = Time.time;
         }
-        if (Axis2D_RB_Right && (Time.time - buttonPreTime) > buttonTimeControl)
+        if ((Axis2D_RB_Right || Axis2D_LB_Right) && (Time.time - buttonPreTime) > buttonTimeControl)
         {
             activeState = OptState.smooth;
             activePanel = ControlPanel.empty;
             buttonPreTime = Time.time;
         }
-        if (Axis2D_RB_Up && (Time.time - buttonPreTime) > buttonTimeControl)
+        if ((Axis2D_RB_Up || Axis2D_LB_Up) && (Time.time - buttonPreTime) > buttonTimeControl)
         {
             activeState = OptState.create;
             activePanel = ControlPanel.empty;
             buttonPreTime = Time.time;
         }
-        if ((Axis2D_RB_Down || Axis2D_RB_Center) && (Time.time - buttonPreTime) > buttonTimeControl)
+        if (((Axis2D_RB_Down || Axis2D_LB_Down) || (Axis2D_RB_Center || Axis2D_LB_Center)) && (Time.time - buttonPreTime) > buttonTimeControl)
         {
             activePanel = ControlPanel.empty;
             buttonPreTime = Time.time;
@@ -264,7 +287,7 @@ public class HandBehaviour : MonoBehaviour {
 
     private void shapePanelHandleOVRInput()
     {
-        if (Axis2D_RB_Left && (Time.time - buttonPreTime) > buttonTimeControl)
+        if ((Axis2D_RB_Left || Axis2D_LB_Left) && (Time.time - buttonPreTime) > buttonTimeControl)
         {
             if (activeShape >= OptShape.cylinder)
             {
@@ -276,7 +299,7 @@ public class HandBehaviour : MonoBehaviour {
             }
             buttonPreTime = Time.time;
         }
-        if (Axis2D_RB_Right && (Time.time - buttonPreTime) > buttonTimeControl)
+        if ((Axis2D_RB_Right || Axis2D_LB_Right) && (Time.time - buttonPreTime) > buttonTimeControl)
         {
             if (activeShape <= OptShape.cube)
             {
@@ -288,13 +311,13 @@ public class HandBehaviour : MonoBehaviour {
             }
             buttonPreTime = Time.time;
         }
-        if (Axis2D_RB_Up && (Time.time - buttonPreTime) > buttonTimeControl)
+        if ((Axis2D_RB_Up || Axis2D_LB_Up) && (Time.time - buttonPreTime) > buttonTimeControl)
         {
             rightChildPos.z = 0;
             optRange += 2;
             buttonPreTime = Time.time;
         }
-        if (Axis2D_RB_Down && (Time.time - buttonPreTime) > buttonTimeControl)
+        if ((Axis2D_RB_Down || Axis2D_LB_Down) && (Time.time - buttonPreTime) > buttonTimeControl)
         {
             rightChildPos.z = 0;
             optRange -= 2;
@@ -303,7 +326,7 @@ public class HandBehaviour : MonoBehaviour {
             }
             buttonPreTime = Time.time;
         }
-        if (Axis2D_RB_Center && (Time.time - buttonPreTime) > buttonTimeControl)
+        if ((Axis2D_RB_Center || Axis2D_LB_Center) && (Time.time - buttonPreTime) > buttonTimeControl)
         {
             activePanel = ControlPanel.empty;
             buttonPreTime = Time.time;
@@ -370,6 +393,7 @@ public class HandBehaviour : MonoBehaviour {
 
         if (Button_A && (Time.time - buttonPreTime) > buttonTimeControl)
         {
+            activeDrawPos = DrawPos.right;
             if (activePanel >= ControlPanel.readfile)
             {
                 activePanel = ControlPanel.empty;
@@ -382,6 +406,27 @@ public class HandBehaviour : MonoBehaviour {
         }
         if (Button_B && (Time.time - buttonPreTime) > buttonTimeControl)
         {
+            activeDrawPos = DrawPos.right;
+            activeInfoPanel = InfoPanel.info;
+            buttonPreTime = Time.time;
+        }
+
+        if (Button_X && (Time.time - buttonPreTime) > buttonTimeControl)
+        {
+            activeDrawPos = DrawPos.left;
+            if (activePanel >= ControlPanel.readfile)
+            {
+                activePanel = ControlPanel.empty;
+            }
+            else
+            {
+                activePanel++;
+            }
+            buttonPreTime = Time.time;
+        }
+        if (Button_Y && (Time.time - buttonPreTime) > buttonTimeControl)
+        {
+            activeDrawPos = DrawPos.left;
             activeInfoPanel = InfoPanel.info;
             buttonPreTime = Time.time;
         }
@@ -423,28 +468,32 @@ public class HandBehaviour : MonoBehaviour {
         {
             tempDrawPosScaled = leftChildPositionScaled;
             tempDrawRotate = leftRotateEuler;
+            tempDrawScale = new Vector3(optRange / 2, optRange / 2, optRange / 2);
         }
         else if (drawPos == DrawPos.right)
         {
             tempDrawPosScaled = rightChildPositionScaled;
             tempDrawRotate = rightRotateEuler;
+            tempDrawScale = new Vector3(optRange / 2, optRange / 2, optRange / 2);
         }
         else
         {
-
+            tempDrawPosScaled = twiceChildPositionScale;
+            tempDrawRotate = new Vector3(0, 0, 0);
+            
         }
 
 
         switch (activeState)
         {
             case OptState.create:
-                CreateVoxels((Vector3i)tempDrawPosScaled, tempDrawRotate, colorMaterialSet, optRange / 2, activeShape);
+                CreateVoxels((Vector3i)tempDrawPosScaled, tempDrawRotate, colorMaterialSet, (Vector3i)tempDrawScale, activeShape);
                 break;
             case OptState.delete:
-                DestroyVoxels((Vector3i)tempDrawPosScaled, tempDrawRotate, optRange / 2, activeShape);
+                DestroyVoxels((Vector3i)tempDrawPosScaled, tempDrawRotate, (Vector3i)tempDrawScale, activeShape);
                 break;
             case OptState.smooth:
-                SmoothVoxels((Vector3i)tempDrawPosScaled, optRange / 2);
+                SmoothVoxels((Vector3i)tempDrawPosScaled, (Vector3i)tempDrawScale);
                 break;
         }
     }
@@ -558,20 +607,24 @@ public class HandBehaviour : MonoBehaviour {
     }
     */
 
-    private void VoxelSetting(Vector3i Pos, Vector3 RotateEuler, MaterialSet materialSet, int range, OptShape optshape)
+    private void VoxelSetting(Vector3i Pos, Vector3 RotateEuler, MaterialSet materialSet, Vector3i range, OptShape optshape)
     {
         int xPos = Pos.x;
         int yPos = Pos.y;
         int zPos = Pos.z;
 
+        int rangeX2 = range.x * range.x;
+        int rangeY2 = range.y * range.y;
+        int rangeZ2 = range.z * range.z;
+
         switch (optshape)
         {
             case OptShape.cube:
-                for (int z = zPos - range; z < zPos + range; z++)
+                for (int z = zPos - range.z; z < zPos + range.z; z++)
                 {
-                    for (int y = yPos - range; y < yPos + range; y++)
+                    for (int y = yPos - range.y; y < yPos + range.y; y++)
                     {
-                        for (int x = xPos - range; x < xPos + range; x++)
+                        for (int x = xPos - range.x; x < xPos + range.x; x++)
                         {
                             Vector3 temp = RotatePointAroundPivot(new Vector3(x, y, z),new Vector3(xPos, yPos, zPos), RotateEuler);
                             Vector3i tempi = (Vector3i)(temp);
@@ -582,19 +635,18 @@ public class HandBehaviour : MonoBehaviour {
                 break;
 
             case OptShape.sphere:
-                int rangeSphere = range * range;
-                for (int z = zPos - range; z < zPos + range; z++)
+                for (int z = zPos - range.z; z < zPos + range.z; z++)
                 {
-                    for (int y = yPos - range; y < yPos + range; y++)
+                    for (int y = yPos - range.y; y < yPos + range.y; y++)
                     {
-                        for (int x = xPos - range; x < xPos + range; x++)
+                        for (int x = xPos - range.x; x < xPos + range.x; x++)
                         {
                             int xDistance = x - xPos;
                             int yDistance = y - yPos;
                             int zDistance = z - zPos;
 
-                            int distSquared = xDistance * xDistance + yDistance * yDistance + zDistance * zDistance;
-                            if (distSquared < rangeSphere)
+                            int distSquared = xDistance * xDistance / rangeX2 + yDistance * yDistance / rangeY2 + zDistance * zDistance / rangeZ2;
+                            if (distSquared < 1)
                             {
                                 Vector3 temp = RotatePointAroundPivot(new Vector3(x, y, z), new Vector3(xPos, yPos, zPos), RotateEuler);
                                 Vector3i tempi = (Vector3i)(temp);
@@ -603,23 +655,22 @@ public class HandBehaviour : MonoBehaviour {
                         }
                     }
                 }
-                TerrainVolumeEditor.BlurTerrainVolume(terrainVolume, new Region(xPos - range, yPos - range, zPos - range, xPos + range, yPos + range, zPos + range));
+                TerrainVolumeEditor.BlurTerrainVolume(terrainVolume, new Region(xPos - range.x, yPos - range.y, zPos - range.z, xPos + range.x, yPos + range.y, zPos + range.z));
                 break;
 
             case OptShape.cylinder:
-                int rangeCircle = range * range;
-                for (int z = zPos - range; z < zPos + range; z++)
+                for (int z = zPos - range.z; z < zPos + range.z; z++)
                 {
-                    for (int y = yPos - range * 2; y < yPos + range * 2; y++)
+                    for (int y = yPos - range.y * 2; y < yPos + range.y * 2; y++)
                     {
-                        for (int x = xPos - range; x < xPos + range; x++)
+                        for (int x = xPos - range.x; x < xPos + range.x; x++)
                         {
                             int xDistance = x - xPos;
                             int yDistance = y - yPos;
                             int zDistance = z - zPos;
 
-                            int distSquared = xDistance * xDistance + zDistance * zDistance;
-                            if (distSquared < rangeCircle)
+                            int distSquared = xDistance * xDistance / rangeX2 + zDistance * zDistance / rangeZ2;
+                            if (distSquared < 1)
                             {
                                 Vector3 temp = RotatePointAroundPivot(new Vector3(x, y, z), new Vector3(xPos, yPos, zPos), RotateEuler);
                                 Vector3i tempi = (Vector3i)(temp);
@@ -631,19 +682,18 @@ public class HandBehaviour : MonoBehaviour {
                 break;
 
             case OptShape.capsule:
-                int rangeCapsule = range * range;
-                for (int z = zPos - range; z < zPos + range; z++)
+                for (int z = zPos - range.z; z < zPos + range.z; z++)
                 {
-                    for (int y = yPos - range; y < yPos + range; y++)
+                    for (int y = yPos - range.y; y < yPos + range.y; y++)
                     {
-                        for (int x = xPos - range; x < xPos + range; x++)
+                        for (int x = xPos - range.x; x < xPos + range.x; x++)
                         {
                             int xDistance = x - xPos;
                             int yDistance = y - yPos;
                             int zDistance = z - zPos;
 
-                            int distSquared = xDistance * xDistance + zDistance * zDistance;
-                            if (distSquared < rangeCapsule)
+                            int distSquared = xDistance * xDistance / rangeX2 + zDistance * zDistance / rangeZ2;
+                            if (distSquared < 1)
                             {
                                 Vector3 temp = RotatePointAroundPivot(new Vector3(x, y, z), new Vector3(xPos, yPos, zPos), RotateEuler);
                                 Vector3i tempi = (Vector3i)(temp);
@@ -654,10 +704,9 @@ public class HandBehaviour : MonoBehaviour {
                 }
 
                 int upxPos = Pos.x;
-                int upyPos = Pos.y + range;
+                int upyPos = Pos.y + range.y;
                 int upzPos = Pos.z;
-                int rangeupSphere = range * range;
-                for (int z = upzPos - range; z < upzPos + range; z++)
+                for (int z = upzPos - range.z; z < upzPos + range.z; z++)
                 {
                     for (int y = upyPos; y < upyPos + range; y++)
                     {
@@ -708,20 +757,20 @@ public class HandBehaviour : MonoBehaviour {
 
     }
 
-    private void DestroyVoxels(Vector3i Pos, Vector3 RotateEular, int range, OptShape optshape)
+    private void DestroyVoxels(Vector3i Pos, Vector3 RotateEular, Vector3i range, OptShape optshape)
     {
         MaterialSet emptyMaterialSet = new MaterialSet();
         VoxelSetting(Pos, RotateEular, emptyMaterialSet, range, optshape);
     }
 
-    private void CreateVoxels(Vector3i Pos, Vector3 RotateEular, MaterialSet materialSet, int range, OptShape optshape)
+    private void CreateVoxels(Vector3i Pos, Vector3 RotateEular, MaterialSet materialSet, Vector3i range, OptShape optshape)
     {
         VoxelSetting(Pos, RotateEular, materialSet, range, optshape);
     }
 
-    private void SmoothVoxels(Vector3i Pos, int range)
+    private void SmoothVoxels(Vector3i Pos, Vector3i range)
     {
-        TerrainVolumeEditor.BlurTerrainVolume(terrainVolume, new Region(Pos.x - range, Pos.y - range, Pos.z - range, Pos.x + range, Pos.y + range, Pos.z + range));
+        TerrainVolumeEditor.BlurTerrainVolume(terrainVolume, new Region(Pos.x - range.x, Pos.y - range.y, Pos.z - range.z, Pos.x + range.x, Pos.y + range.y, Pos.z + range.z));
     }
 
     private void PaintVoxels(Vector3 Pos, float brushInnerRadius, float brushOuterRadius, float amount, uint materialIndex)
@@ -791,5 +840,15 @@ public class HandBehaviour : MonoBehaviour {
     public Vector2 GetHSVAxis2DBox()
     {
         return HsvAxis2D_box;
+    }
+
+    public DrawPos GetActiveDrawPos()
+    {
+        return activeDrawPos;
+    }
+
+    public bool GetOpenTwoHandDraw()
+    {
+        return openTwoHandDraw;
     }
 }

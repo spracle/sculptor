@@ -6,6 +6,7 @@ public class HandCanvasControl : MonoBehaviour {
     public GameObject HandObject = null;
 
     public GameObject rightHandAnchor = null;
+    public GameObject leftHandAnchor = null;
 
     public GameObject mainPanel;
     public GameObject statePanel;
@@ -32,11 +33,19 @@ public class HandCanvasControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        transform.position = rightHandAnchor.transform.position;
-        transform.rotation = Camera.main.transform.rotation;
-
         handBehaviour = HandObject.GetComponent<HandBehaviour>();
         ControlPanel nowPanel = handBehaviour.GetActivePanel();
+        DrawPos nowPos = handBehaviour.GetActiveDrawPos();
+
+        if (nowPos == DrawPos.left)
+        {
+            transform.position = leftHandAnchor.transform.position;
+        }
+        else
+        {
+            transform.position = rightHandAnchor.transform.position;
+        }
+        transform.rotation = Camera.main.transform.rotation;
 
         // here only use to update the canvas contents. all the hand behavior handle in handBehivor.cs
 
