@@ -480,7 +480,9 @@ public class HandBehaviour : MonoBehaviour {
         {
             tempDrawPosScaled = twiceChildPositionScale;
             tempDrawRotate = new Vector3(0, 0, 0);
-            
+            Vector3 tempTwiceScale = trackAnchor.GetTwiceChildLocalScale() / 2;
+            tempDrawScale = (new Vector3(tempTwiceScale.x / VoxelWorldScale.x, tempTwiceScale.y / VoxelWorldScale.y, tempTwiceScale.z / VoxelWorldScale.z));
+
         }
 
 
@@ -708,16 +710,16 @@ public class HandBehaviour : MonoBehaviour {
                 int upzPos = Pos.z;
                 for (int z = upzPos - range.z; z < upzPos + range.z; z++)
                 {
-                    for (int y = upyPos; y < upyPos + range; y++)
+                    for (int y = upyPos; y < upyPos + range.y; y++)
                     {
-                        for (int x = upxPos - range; x < upxPos + range; x++)
+                        for (int x = upxPos - range.x; x < upxPos + range.x; x++)
                         {
                             int xDistance = x - upxPos;
                             int yDistance = y - upyPos;
                             int zDistance = z - upzPos;
 
-                            int distSquared = xDistance * xDistance + yDistance * yDistance + zDistance * zDistance;
-                            if (distSquared < rangeupSphere)
+                            int distSquared = xDistance * xDistance / rangeX2 + yDistance * yDistance / rangeY2 + zDistance * zDistance / rangeZ2;
+                            if (distSquared < 1)
                             {
                                 Vector3 temp = RotatePointAroundPivot(new Vector3(x, y, z), new Vector3(xPos, yPos, zPos), RotateEuler);
                                 Vector3i tempi = (Vector3i)(temp);
@@ -728,21 +730,20 @@ public class HandBehaviour : MonoBehaviour {
                 }
 
                 int downxPos = Pos.x;
-                int downyPos = Pos.y - range;
+                int downyPos = Pos.y - range.y;
                 int downzPos = Pos.z;
-                int rangedownSphere = range * range;
-                for (int z = downzPos - range; z < downzPos + range; z++)
+                for (int z = downzPos - range.z; z < downzPos + range.z; z++)
                 {
-                    for (int y = downyPos - range; y < downyPos; y++)
+                    for (int y = downyPos - range.z; y < downyPos; y++)
                     {
-                        for (int x = downxPos - range; x < downxPos + range; x++)
+                        for (int x = downxPos - range.z; x < downxPos + range.z; x++)
                         {
                             int xDistance = x - downxPos;
                             int yDistance = y - downyPos;
                             int zDistance = z - downzPos;
 
-                            int distSquared = xDistance * xDistance + yDistance * yDistance + zDistance * zDistance;
-                            if (distSquared < rangedownSphere)
+                            int distSquared = xDistance * xDistance / rangeX2 + yDistance * yDistance / rangeY2 + zDistance * zDistance / rangeZ2;
+                            if (distSquared < 1)
                             {
                                 Vector3 temp = RotatePointAroundPivot(new Vector3(x, y, z), new Vector3(xPos, yPos, zPos), RotateEuler);
                                 Vector3i tempi = (Vector3i)(temp);
@@ -751,7 +752,7 @@ public class HandBehaviour : MonoBehaviour {
                         }
                     }
                 }
-                TerrainVolumeEditor.BlurTerrainVolume(terrainVolume, new Region(xPos - range, yPos - range * 2, zPos - range, xPos + range, yPos + range * 2, zPos + range));
+                TerrainVolumeEditor.BlurTerrainVolume(terrainVolume, new Region(xPos - range.x, yPos - range.y * 2, zPos - range.z, xPos + range.x, yPos + range.y * 2, zPos + range.z));
                 break;
         }
 
