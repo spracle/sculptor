@@ -2,29 +2,41 @@
 using System.Collections;
 using UnityEngine.EventSystems;
 
-public class HsvSliderPicker : MonoBehaviour, IDragHandler, IPointerDownHandler
+public class HsvSliderPicker : MonoBehaviour
 {
 
     public HSVPicker picker;
+    public GameObject HandObject;
 
-	public enum SliderModes{
-		Vertical,
-		Horizontal
-	}
-	public SliderModes sm = SliderModes.Vertical;
+    private HandBehaviour handBehaviour;
+    private Vector2 HandAxis2D = new Vector2(0, 0);
 
     // Use this for initialization
     void Start()
     {
-
+        handBehaviour = HandObject.GetComponent<HandBehaviour>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (HandAxis2D != handBehaviour.GetHSVAxis2DSlider())
+        {
+            HandAxis2D = handBehaviour.GetHSVAxis2DSlider();
+            PlacePointerVR(HandAxis2D);
+        }
     }
 
+    void PlacePointerVR(Vector2 AxisValue)
+    {
+        var pos = new Vector2(picker.hsvSlider.rectTransform.position.x - AxisValue.x, AxisValue.y - picker.hsvSlider.rectTransform.position.y);
+        pos.x /= picker.hsvSlider.rectTransform.rect.height * picker.hsvSlider.canvas.transform.lossyScale.y;
+
+        pos.x = Mathf.Clamp(pos.x, 0, 1f);
+        picker.MovePointer(pos.x);
+    }
+
+    /*
     void PlacePointer(PointerEventData eventData)
     {
 		if (sm == SliderModes.Horizontal) {
@@ -63,4 +75,5 @@ public class HsvSliderPicker : MonoBehaviour, IDragHandler, IPointerDownHandler
     {
         PlacePointer(eventData);
     }
+    */
 }

@@ -8,7 +8,6 @@ public class HSVPicker : MonoBehaviour {
 	public HexRGB hexrgb;
 
     public static Color currentColor;
-    public Image colorImage;
     public Image pointer;
     public Image cursor;
     public RawImage hsvSlider;
@@ -107,7 +106,6 @@ public class HSVPicker : MonoBehaviour {
         MoveCursor((float)hsv.S, (float)hsv.V, false);
 
         currentColor = color;
-        colorImage.color = currentColor;
 
         onValueChanged.Invoke(currentColor);
 
@@ -135,7 +133,6 @@ public class HSVPicker : MonoBehaviour {
 		cursor.rectTransform.anchoredPosition = new Vector2(posX * hsvImage.rectTransform.rect.width  , posY * hsvImage.rectTransform.rect.height - hsvImage.rectTransform.rect.height);
 
         currentColor = GetColor(cursorX, cursorY);
-        colorImage.color = currentColor;
 
         if (updateInputs)
         {
@@ -184,7 +181,6 @@ public class HSVPicker : MonoBehaviour {
         pointer.rectTransform.anchoredPosition = new Vector2(0, -pointerPos * hsvSlider.rectTransform.rect.height);
 
         currentColor = GetColor(cursorX, cursorY);
-        colorImage.color = currentColor;
 
         if (updateInputs)
         {

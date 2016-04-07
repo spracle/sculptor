@@ -200,6 +200,9 @@
     <None Include="Assets\OVR\Moonlight\Resources\Unlit Transparent Color.shader" />
     <None Include="Assets\OVR\Moonlight\Shaders\OVRColorRampAlpha.shader" />
     <None Include="Assets\OVR\Moonlight\Shaders\Unlit Crosshair.shader" />
+    <None Include="Assets\Sculptor\Scene\UnityVC\StandardSpecularVC.shader" />
+    <None Include="Assets\Sculptor\Scene\UnityVC\StandardVC.shader" />
+    <None Include="Assets\Sculptor\Scene\UnityVC\UnityVC.cginc" />
     <None Include="Assets\StreamingAssets\Cubiquity\VoxelDatabases\CreatedForAssets\Readme.txt" />
     <None Include="Assets\StreamingAssets\Cubiquity\VoxelDatabases\Examples\ImportedCityLicense.txt" />
     <None Include="Assets\StreamingAssets\Cubiquity\VoxelDatabases\Examples\Tests\Readme.txt" />

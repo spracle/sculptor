@@ -15,9 +15,6 @@ public class HeadCanvasControl : MonoBehaviour {
     private OptState activeState;
     private OptShape activeShape;
 
-    private string infoText;
-    private Text showText;
-
     void Start()
     {
         handBehaviour = HandObject.GetComponent<HandBehaviour>();

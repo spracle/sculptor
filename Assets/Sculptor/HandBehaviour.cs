@@ -42,7 +42,8 @@ public class HandBehaviour : MonoBehaviour {
     private Vector3 rotateEuler;
 
     private int HsvSliderOrBox; // 0 is slider, 1 is box.
-    private Vector2 HsvAxis2D = new Vector2(0, 0);
+    private Vector2 HsvAxis2D_slider = new Vector2(0, 0);
+    private Vector2 HsvAxis2D_box = new Vector2(0, 0);
 
     private Vector3 childPos = new Vector3(0, 0, 0);
 
@@ -279,7 +280,24 @@ public class HandBehaviour : MonoBehaviour {
 
     private void colorPanelHandleOVRInput()
     {
-
+        if (HsvSliderOrBox == 0)
+        {
+            HsvAxis2D_slider.x += Axis2D_R.x;
+            HsvAxis2D_slider.y += Axis2D_R.y;
+            if (Axis2D_RB_Center)
+            {
+                HsvSliderOrBox = 1;
+            }
+        }
+        else
+        {
+            HsvAxis2D_box.x += Axis2D_R.x * 0.01f;
+            HsvAxis2D_box.y += Axis2D_R.y * 0.01f;
+            if (Axis2D_RB_Center)
+            {
+                HsvSliderOrBox = 0;
+            }
+        }
     }
 
     private void readfilePanelHandleOVRInput()
@@ -712,10 +730,13 @@ public class HandBehaviour : MonoBehaviour {
         return childPos.z;
     }
 
-    public Vector2 GetHSVAxis2D()
+    public Vector2 GetHSVAxis2DSlider()
     {
-        return HsvAxis2D;
+        return HsvAxis2D_slider;
     }
 
-
+    public Vector2 GetHSVAxis2DBox()
+    {
+        return HsvAxis2D_box;
+    }
 }

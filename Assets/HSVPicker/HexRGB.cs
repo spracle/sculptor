@@ -7,14 +7,12 @@ using System.Globalization;
 public class HexRGB : MonoBehaviour {
 
 	public Text textColor; 
-	public InputField hexField;
 
 	public HSVPicker hsvpicker; 
 
 	public void ManipulateViaRGB2Hex(){
 		Color color = HSVPicker.currentColor;
 		string hex = ColorToHex (color);
-		hexField.text = hex;
 	}
 
 	public static string ColorToHex(Color color){

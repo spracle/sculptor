@@ -5,25 +5,23 @@ using UnityEngine.EventSystems;
 public class HsvBoxSelector : MonoBehaviour{
 
     public HSVPicker picker;
+    public GameObject HandObject;
 
     private HandBehaviour handBehaviour;
-
     private Vector2 HandAxis2D = new Vector2(0, 0);
 
     // Use this for initialization
     void Start () {
 
-        handBehaviour = GetComponent<HandBehaviour>();
+        handBehaviour = HandObject.GetComponent<HandBehaviour>();
 
     }
 	
 	// Update is called once per frame
 	void Update () {
-
-        //HandAxis2D = handBehaviour.GetHSVAxis2D();
-        //PlaceCursorVR(HandAxis2D);
-
-	}
+        HandAxis2D = handBehaviour.GetHSVAxis2DBox();
+        PlaceCursorVR(HandAxis2D);
+    }
 
     void PlaceCursorVR(Vector2 AxisValue)
     {
@@ -32,8 +30,6 @@ public class HsvBoxSelector : MonoBehaviour{
         pos.x = picker.hsvImage.rectTransform.rect.width * picker.hsvImage.transform.lossyScale.x - (picker.hsvImage.rectTransform.position.x - AxisValue.x);
         pos.x /= picker.hsvImage.rectTransform.rect.width * picker.hsvImage.transform.lossyScale.x;
         pos.y /= picker.hsvImage.rectTransform.rect.height * picker.hsvImage.transform.lossyScale.y;
-        pos.x -= .5f;
-
         pos.x = Mathf.Clamp(pos.x, 0, .9999f);  //1 is the same as 0
         pos.y = Mathf.Clamp(pos.y, 0, .9999f);
         picker.MoveCursor(pos.x, pos.y);
