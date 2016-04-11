@@ -16,6 +16,11 @@ public class TrackAnchor : MonoBehaviour {
     private GameObject rightHand = null;
     private GameObject rightHandChild = null;
 
+    private GameObject colorCube = null;
+    private Vector3 colorCubeSize = new Vector3(0.2f, 0.2f, 0.2f);
+    private float colorAlpha = 0.05f;
+    private float colorChildAlpha = 0.3f;
+
     private HandBehaviour handBehaviour;
     private TerrainVolume terrainVolume;
     private Vector3 VoxelWorldScale = new Vector3(1f, 1f, 1f);
@@ -32,6 +37,10 @@ public class TrackAnchor : MonoBehaviour {
 
     private GameObject twiceHand;
     private bool openTwoHandDraw = false;
+    private ControlPanel showColorCube = ControlPanel.empty;
+
+    private Vector3 ColorBlackPoint = new Vector3(0, 0, 0);
+    private Color ColorChose = Color.white;
 
     // Use this for initialization
     void Start () {
@@ -43,7 +52,7 @@ public class TrackAnchor : MonoBehaviour {
 
         rightHand = GameObject.CreatePrimitive(PrimitiveType.Cube);
         materialColor = rightHand.transform.GetComponent<Renderer>().material.color;
-        materialColor.a = 0.05f;
+        materialColor.a = colorAlpha;
         rightHand.transform.GetComponent<Renderer>().material.color = materialColor;
         rightHand.transform.GetComponent<Renderer>().material.shader = Shader.Find("Transparent/Diffuse");
 
@@ -51,13 +60,13 @@ public class TrackAnchor : MonoBehaviour {
         rightHandChild.transform.position = rightChildPosition;
         rightHandChild.transform.parent = rightHand.transform;
         materialChildColor = rightHandChild.transform.GetComponent<Renderer>().material.color;
-        materialChildColor.a = 0.3f;
+        materialChildColor.a = colorChildAlpha;
         rightHandChild.transform.GetComponent<Renderer>().material.color = materialChildColor;
         rightHandChild.transform.GetComponent<Renderer>().material.shader = Shader.Find("Transparent/Diffuse");
 
         leftHand = GameObject.CreatePrimitive(PrimitiveType.Cube);
         materialColor = leftHand.transform.GetComponent<Renderer>().material.color;
-        materialColor.a = 0.05f;
+        materialColor.a = colorAlpha;
         leftHand.transform.GetComponent<Renderer>().material.color = materialColor;
         leftHand.transform.GetComponent<Renderer>().material.shader = Shader.Find("Transparent/Diffuse");
 
@@ -65,19 +74,28 @@ public class TrackAnchor : MonoBehaviour {
         leftHandChild.transform.position = leftChildPosition;
         leftHandChild.transform.parent = leftHand.transform;
         materialChildColor = leftHandChild.transform.GetComponent<Renderer>().material.color;
-        materialChildColor.a = 0.3f;
+        materialChildColor.a = colorChildAlpha;
         leftHandChild.transform.GetComponent<Renderer>().material.color = materialChildColor;
         leftHandChild.transform.GetComponent<Renderer>().material.shader = Shader.Find("Transparent/Diffuse");
 
         twiceHand = GameObject.CreatePrimitive(PrimitiveType.Cube);
         materialColor = twiceHand.transform.GetComponent<Renderer>().material.color;
-        materialColor.a = 0.5f;
+        materialColor.a = colorChildAlpha;
         twiceHand.transform.GetComponent<Renderer>().material.color = materialColor;
         twiceHand.transform.GetComponent<Renderer>().material.shader = Shader.Find("Transparent/Diffuse");
+
+        colorCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        materialColor = colorCube.transform.GetComponent<Renderer>().material.color;
+        materialColor.a = colorChildAlpha;
+        colorCube.transform.GetComponent<Renderer>().material.color = materialColor;
+        colorCube.transform.GetComponent<Renderer>().material.shader = Shader.Find("Transparent/Diffuse");
+        colorCube.transform.localScale = colorCubeSize;
 
         leftHandChild.SetActive(true);
         rightHandChild.SetActive(true);
         twiceHand.SetActive(false);
+
+        colorCube.SetActive(false);
     }
 	
 	// Update is called once per frame
@@ -196,6 +214,66 @@ public class TrackAnchor : MonoBehaviour {
         }
         openTwoHandDraw = tempOpenTwoHandDraw;
 
+        // color 
+        ControlPanel tempShowColorCube = handBehaviour.GetActivePanel();
+        // update state
+        if (tempShowColorCube != showColorCube)
+        {
+            if (tempShowColorCube == ControlPanel.color)
+            {
+                colorCube.SetActive(true);
+                DrawPos tempDrawPos = handBehaviour.GetActiveDrawPos();
+                if (tempDrawPos == DrawPos.left)
+                {
+                    colorCube.transform.position = leftHandAnchor.transform.position;
+                }
+                else
+                {
+                    colorCube.transform.position = rightHandAnchor.transform.position;
+                }
+                ColorBlackPoint = colorCube.transform.position - colorCubeSize / 2;
+            }
+            else
+            {
+                colorCube.SetActive(false);
+            }
+            showColorCube = tempShowColorCube;
+        }
+        // update data
+        if (tempShowColorCube == ControlPanel.color)
+        {
+            DrawPos tempDrawPos = handBehaviour.GetActiveDrawPos();
+            Vector3 tempPosV;
+            float tempPosLX, tempPosLY, tempPosLZ;
+            if (tempDrawPos == DrawPos.left)
+            {
+                tempPosV = leftHandAnchor.transform.position;
+                tempPosLX = Mathf.Clamp(tempPosV.x, ColorBlackPoint.x, ColorBlackPoint.x + colorCubeSize.x);
+                tempPosLY = Mathf.Clamp(tempPosV.y, ColorBlackPoint.y, ColorBlackPoint.y + colorCubeSize.y);
+                tempPosLZ = Mathf.Clamp(tempPosV.z, ColorBlackPoint.z, ColorBlackPoint.z + colorCubeSize.z);
+
+                leftHandChild.transform.position = new Vector3(tempPosLX, tempPosLY, tempPosLZ);
+            }
+            else
+            {
+                tempPosV = rightHandAnchor.transform.position;
+                tempPosLX = Mathf.Clamp(tempPosV.x, ColorBlackPoint.x, ColorBlackPoint.x + colorCubeSize.x);
+                tempPosLY = Mathf.Clamp(tempPosV.y, ColorBlackPoint.y, ColorBlackPoint.y + colorCubeSize.y);
+                tempPosLZ = Mathf.Clamp(tempPosV.z, ColorBlackPoint.z, ColorBlackPoint.z + colorCubeSize.z);
+
+                rightHandChild.transform.position = new Vector3(tempPosLX, tempPosLY, tempPosLZ);
+            }
+            ColorChose = new Color((tempPosLX - ColorBlackPoint.x) / colorCubeSize.x, (tempPosLY - ColorBlackPoint.y) / colorCubeSize.y, (tempPosLZ - ColorBlackPoint.z) / colorCubeSize.z);
+            ColorChose.a = colorChildAlpha;
+
+            leftHandChild.GetComponent<Renderer>().material.color = ColorChose;
+            rightHandChild.GetComponent<Renderer>().material.color = ColorChose;
+
+            //Debug.Log("Color: " + ColorChose.r + ", " + ColorChose.g + ", " + ColorChose.b);
+        }
+
+
+
     }
 
     public Vector3 GetRightChildPosition()
@@ -218,4 +296,8 @@ public class TrackAnchor : MonoBehaviour {
         return twiceHand.transform.localScale;
     }
 
+    public Color GetColorChose()
+    {
+        return ColorChose;
+    }
 }

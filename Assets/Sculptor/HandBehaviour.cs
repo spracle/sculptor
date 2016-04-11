@@ -55,14 +55,12 @@ public class HandBehaviour : MonoBehaviour {
     private Vector3 rightRotateEuler;
     private Vector3 leftRotateEuler;
 
-    private int HsvSliderOrBox; // 0 is slider, 1 is box.
-    private Vector2 HsvAxis2D_slider = new Vector2(0, 0);
-    private Vector2 HsvAxis2D_box = new Vector2(0, 0);
-
     private Vector3 leftChildPos = new Vector3(0, 0, 0);
     private Vector3 rightChildPos = new Vector3(0, 0, 0);
 
     private bool openTwoHandDraw = false;
+
+    private Color colorChose = Color.white;
 
     // -- OVRInput Info
 
@@ -170,6 +168,28 @@ public class HandBehaviour : MonoBehaviour {
 
         //Debug.Log(leftHandAnchor.transform.position);
 
+        Color tempcolor = trackAnchor.GetColorChose();
+        if (colorChose != tempcolor)
+        {
+            float temptotal = colorChose.r + colorChose.g + colorChose.b;
+            if (temptotal == 0)
+            {
+                colorMaterialSet.weights[3] = 255;    // black
+                colorMaterialSet.weights[2] = 0;  // b
+                colorMaterialSet.weights[1] = 0;  // g
+                colorMaterialSet.weights[0] = 0;  // r
+            }
+            else
+            {
+                colorMaterialSet.weights[3] = 0;    // black
+                colorMaterialSet.weights[2] = (byte)(int)(254 * (colorChose.b / temptotal));  // b
+                colorMaterialSet.weights[1] = (byte)(int)(254 * (colorChose.g / temptotal));  // g
+                colorMaterialSet.weights[0] = (byte)(int)(254 * (colorChose.r / temptotal));  // r
+            }
+            Debug.Log("ColorMaterial: " + colorMaterialSet.weights[0] + ", " + colorMaterialSet.weights[1] + ", " + colorMaterialSet.weights[2] + ", " + colorMaterialSet.weights[3]);
+            colorChose = tempcolor;
+        }
+
         HandleKeyBoardInput();
         HandleOVRInput();
     }
@@ -199,7 +219,7 @@ public class HandBehaviour : MonoBehaviour {
         else
         {
             openTwoHandDraw = false;
-            if (Axis1D_LB > 0 && Axis1D_LT > 0 && optRange < 10 && (Time.time - buttonPreTime) > buttonTimeControl / 5)
+            if (Axis1D_LB > 0 && Axis1D_LT > 0 && optRange < 10 && (Time.time - buttonPreTime) > buttonTimeControl / 15)
             {
                 StateHandleOVRInput(DrawPos.left);
                 buttonPreTime = Time.time;
@@ -210,7 +230,7 @@ public class HandBehaviour : MonoBehaviour {
                 buttonPreTime = Time.time;
             }
 
-            if (Axis1D_RB > 0 && Axis1D_RT > 0 && optRange < 10 && (Time.time - buttonPreTime) > buttonTimeControl / 5)
+            if (Axis1D_RB > 0 && Axis1D_RT > 0 && optRange < 10 && (Time.time - buttonPreTime) > buttonTimeControl / 15)
             {
                 StateHandleOVRInput(DrawPos.right);
                 buttonPreTime = Time.time;
@@ -335,23 +355,10 @@ public class HandBehaviour : MonoBehaviour {
 
     private void colorPanelHandleOVRInput()
     {
-        if (HsvSliderOrBox == 0)
+        if ((Axis1D_LB > 0 || Axis1D_RB > 0) && (Time.time - buttonPreTime) > buttonTimeControl)
         {
-            HsvAxis2D_slider.x += Axis2D_R.x;
-            HsvAxis2D_slider.y += Axis2D_R.y;
-            if (Axis2D_RB_Center)
-            {
-                HsvSliderOrBox = 1;
-            }
-        }
-        else
-        {
-            HsvAxis2D_box.x += Axis2D_R.x * 0.01f;
-            HsvAxis2D_box.y += Axis2D_R.y * 0.01f;
-            if (Axis2D_RB_Center)
-            {
-                HsvSliderOrBox = 0;
-            }
+            activePanel = ControlPanel.empty;
+            buttonPreTime = Time.time;
         }
     }
 
@@ -482,9 +489,7 @@ public class HandBehaviour : MonoBehaviour {
             tempDrawRotate = new Vector3(0, 0, 0);
             Vector3 tempTwiceScale = trackAnchor.GetTwiceChildLocalScale() / 2;
             tempDrawScale = (new Vector3(tempTwiceScale.x / VoxelWorldScale.x, tempTwiceScale.y / VoxelWorldScale.y, tempTwiceScale.z / VoxelWorldScale.z));
-
         }
-
 
         switch (activeState)
         {
@@ -643,11 +648,11 @@ public class HandBehaviour : MonoBehaviour {
                     {
                         for (int x = xPos - range.x; x < xPos + range.x; x++)
                         {
-                            int xDistance = x - xPos;
-                            int yDistance = y - yPos;
-                            int zDistance = z - zPos;
+                            float xDistance = x - xPos;
+                            float yDistance = y - yPos;
+                            float zDistance = z - zPos;
 
-                            int distSquared = xDistance * xDistance / rangeX2 + yDistance * yDistance / rangeY2 + zDistance * zDistance / rangeZ2;
+                            float distSquared = xDistance * xDistance / rangeX2 + yDistance * yDistance / rangeY2 + zDistance * zDistance / rangeZ2;
                             if (distSquared < 1)
                             {
                                 Vector3 temp = RotatePointAroundPivot(new Vector3(x, y, z), new Vector3(xPos, yPos, zPos), RotateEuler);
@@ -667,11 +672,11 @@ public class HandBehaviour : MonoBehaviour {
                     {
                         for (int x = xPos - range.x; x < xPos + range.x; x++)
                         {
-                            int xDistance = x - xPos;
-                            int yDistance = y - yPos;
-                            int zDistance = z - zPos;
+                            float xDistance = x - xPos;
+                            float yDistance = y - yPos;
+                            float zDistance = z - zPos;
 
-                            int distSquared = xDistance * xDistance / rangeX2 + zDistance * zDistance / rangeZ2;
+                            float distSquared = xDistance * xDistance / rangeX2 + zDistance * zDistance / rangeZ2;
                             if (distSquared < 1)
                             {
                                 Vector3 temp = RotatePointAroundPivot(new Vector3(x, y, z), new Vector3(xPos, yPos, zPos), RotateEuler);
@@ -690,11 +695,11 @@ public class HandBehaviour : MonoBehaviour {
                     {
                         for (int x = xPos - range.x; x < xPos + range.x; x++)
                         {
-                            int xDistance = x - xPos;
-                            int yDistance = y - yPos;
-                            int zDistance = z - zPos;
+                            float xDistance = x - xPos;
+                            float yDistance = y - yPos;
+                            float zDistance = z - zPos;
 
-                            int distSquared = xDistance * xDistance / rangeX2 + zDistance * zDistance / rangeZ2;
+                            float distSquared = xDistance * xDistance / rangeX2 + zDistance * zDistance / rangeZ2;
                             if (distSquared < 1)
                             {
                                 Vector3 temp = RotatePointAroundPivot(new Vector3(x, y, z), new Vector3(xPos, yPos, zPos), RotateEuler);
@@ -714,11 +719,11 @@ public class HandBehaviour : MonoBehaviour {
                     {
                         for (int x = upxPos - range.x; x < upxPos + range.x; x++)
                         {
-                            int xDistance = x - upxPos;
-                            int yDistance = y - upyPos;
-                            int zDistance = z - upzPos;
+                            float xDistance = x - upxPos;
+                            float yDistance = y - upyPos;
+                            float zDistance = z - upzPos;
 
-                            int distSquared = xDistance * xDistance / rangeX2 + yDistance * yDistance / rangeY2 + zDistance * zDistance / rangeZ2;
+                            float distSquared = xDistance * xDistance / rangeX2 + yDistance * yDistance / rangeY2 + zDistance * zDistance / rangeZ2;
                             if (distSquared < 1)
                             {
                                 Vector3 temp = RotatePointAroundPivot(new Vector3(x, y, z), new Vector3(xPos, yPos, zPos), RotateEuler);
@@ -738,11 +743,11 @@ public class HandBehaviour : MonoBehaviour {
                     {
                         for (int x = downxPos - range.z; x < downxPos + range.z; x++)
                         {
-                            int xDistance = x - downxPos;
-                            int yDistance = y - downyPos;
-                            int zDistance = z - downzPos;
+                            float xDistance = x - downxPos;
+                            float yDistance = y - downyPos;
+                            float zDistance = z - downzPos;
 
-                            int distSquared = xDistance * xDistance / rangeX2 + yDistance * yDistance / rangeY2 + zDistance * zDistance / rangeZ2;
+                            float distSquared = xDistance * xDistance / rangeX2 + yDistance * yDistance / rangeY2 + zDistance * zDistance / rangeZ2;
                             if (distSquared < 1)
                             {
                                 Vector3 temp = RotatePointAroundPivot(new Vector3(x, y, z), new Vector3(xPos, yPos, zPos), RotateEuler);
@@ -831,16 +836,6 @@ public class HandBehaviour : MonoBehaviour {
     public float GetRightChildPosZ()
     {
         return rightChildPos.z;
-    }
-
-    public Vector2 GetHSVAxis2DSlider()
-    {
-        return HsvAxis2D_slider;
-    }
-
-    public Vector2 GetHSVAxis2DBox()
-    {
-        return HsvAxis2D_box;
     }
 
     public DrawPos GetActiveDrawPos()
