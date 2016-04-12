@@ -22,7 +22,7 @@ public class HandBehaviour : MonoBehaviour {
     private MaterialSet emptyMaterialSet;
     private MaterialSet colorMaterialSet;
 
-    private Vector3 VoxelWorldScale = new Vector3(1, 1, 1);
+    private Transform VoxelWorldTransform;
 
     private Vector3 leftPosition = new Vector3(0, 0, 0);
     private Vector3 rightPosition = new Vector3(0, 0, 0);
@@ -44,7 +44,8 @@ public class HandBehaviour : MonoBehaviour {
     private DrawPos activeDrawPos;
 
     private float buttonPreTime = 0.0f;
-    private float buttonTimeControl = 0.3f;
+    private float ButtonTimeControlSingle = 0.3f;
+    private float ButtonTimeControlContinue = 0.05f;
     private float markTime;
 
     private int optRange = 4;
@@ -107,7 +108,7 @@ public class HandBehaviour : MonoBehaviour {
             Debug.LogError("This 'BasicProceduralVolume' script should be attached to a game object with a TerrainVolume component");
         }
 
-        VoxelWorldScale = terrainVolume.transform.localScale;
+        VoxelWorldTransform = terrainVolume.transform;
 
         trackAnchor = GetComponent<TrackAnchor>();
 
@@ -151,17 +152,17 @@ public class HandBehaviour : MonoBehaviour {
             markTime = Time.time;
         }
 
-        leftPosition = (new Vector3(leftHandAnchor.transform.position.x / VoxelWorldScale.x, leftHandAnchor.transform.position.y / VoxelWorldScale.y, leftHandAnchor.transform.position.z / VoxelWorldScale.z));
-        rightPosition = (new Vector3(rightHandAnchor.transform.position.x / VoxelWorldScale.x, rightHandAnchor.transform.position.y / VoxelWorldScale.y, rightHandAnchor.transform.position.z / VoxelWorldScale.z));
+        leftPosition = (new Vector3(leftHandAnchor.transform.position.x / VoxelWorldTransform.localScale.x, leftHandAnchor.transform.position.y / VoxelWorldTransform.localScale.y, leftHandAnchor.transform.position.z / VoxelWorldTransform.localScale.z));
+        rightPosition = (new Vector3(rightHandAnchor.transform.position.x / VoxelWorldTransform.localScale.x, rightHandAnchor.transform.position.y / VoxelWorldTransform.localScale.y, rightHandAnchor.transform.position.z / VoxelWorldTransform.localScale.z));
 
         leftChildPosition = trackAnchor.GetLeftChildPosition();
-        leftChildPositionScaled = (new Vector3(leftChildPosition.x / VoxelWorldScale.x, leftChildPosition.y / VoxelWorldScale.y, leftChildPosition.z / VoxelWorldScale.z));
+        leftChildPositionScaled = (new Vector3(leftChildPosition.x / VoxelWorldTransform.localScale.x, leftChildPosition.y / VoxelWorldTransform.localScale.y, leftChildPosition.z / VoxelWorldTransform.localScale.z));
 
         rightChildPosition = trackAnchor.GetRightChildPosition();
-        rightChildPositionScaled = (new Vector3(rightChildPosition.x / VoxelWorldScale.x, rightChildPosition.y / VoxelWorldScale.y, rightChildPosition.z / VoxelWorldScale.z));
+        rightChildPositionScaled = (new Vector3(rightChildPosition.x / VoxelWorldTransform.localScale.x, rightChildPosition.y / VoxelWorldTransform.localScale.y, rightChildPosition.z / VoxelWorldTransform.localScale.z));
 
         twiceChildPosition = trackAnchor.GetTwiceChildPosition();
-        twiceChildPositionScale = (new Vector3(twiceChildPosition.x / VoxelWorldScale.x, twiceChildPosition.y / VoxelWorldScale.y, twiceChildPosition.z / VoxelWorldScale.z));
+        twiceChildPositionScale = (new Vector3(twiceChildPosition.x / VoxelWorldTransform.localScale.x, twiceChildPosition.y / VoxelWorldTransform.localScale.y, twiceChildPosition.z / VoxelWorldTransform.localScale.z));
 
         rightRotateEuler = rightHandAnchor.transform.rotation.eulerAngles;
         leftRotateEuler = leftHandAnchor.transform.rotation.eulerAngles;
@@ -207,71 +208,128 @@ public class HandBehaviour : MonoBehaviour {
 
     private void emptyPanelHandleOVRInput()
     {
-
         if (Axis1D_LT > 0 && Axis1D_RT > 0)
         {
+            // change the terrain volume transform
+            Vector3 tempCenterPos = (leftChildPosition + rightChildPosition) / 2;
+        }
+        else if (Axis1D_LB > 0 && Axis1D_RB > 0)
+        {
+            // two hand operator
             openTwoHandDraw = true;
-            if ( (Axis1D_LB > 0 || Axis1D_RB > 0) && (Time.time - buttonPreTime) > buttonTimeControl)
-            {
-                StateHandleOVRInput(DrawPos.twice);
-            }
         }
         else
         {
+            // draw two hand result
+            if (openTwoHandDraw == true)
+            {
+                StateHandleOVRInput(DrawPos.twice);
+                buttonPreTime = Time.time;
+            }
+
+            // one hand operator
             openTwoHandDraw = false;
-            if (Axis1D_LB > 0 && Axis1D_LT > 0 && optRange < 10 && (Time.time - buttonPreTime) > buttonTimeControl / 15)
+
+            if (Axis1D_LB > 0 && Axis1D_LT > 0 && optRange < 10 && (Time.time - buttonPreTime) > ButtonTimeControlContinue)
             {
+                activeState = OptState.smooth;
                 StateHandleOVRInput(DrawPos.left);
                 buttonPreTime = Time.time;
             }
-            else if (Axis1D_LB > 0 && (Time.time - buttonPreTime) > buttonTimeControl)
+            else if (Axis1D_LB > 0 && (Time.time - buttonPreTime) > ButtonTimeControlContinue)
             {
+                activeState = OptState.create;
+                StateHandleOVRInput(DrawPos.left);
+                buttonPreTime = Time.time;
+            }
+            else if (Axis1D_LT > 0 && (Time.time - buttonPreTime) > ButtonTimeControlContinue)
+            {
+                activeState = OptState.delete;
                 StateHandleOVRInput(DrawPos.left);
                 buttonPreTime = Time.time;
             }
 
-            if (Axis1D_RB > 0 && Axis1D_RT > 0 && optRange < 10 && (Time.time - buttonPreTime) > buttonTimeControl / 15)
+            if (Axis1D_RB > 0 && Axis1D_RT > 0 && optRange < 10 && (Time.time - buttonPreTime) > ButtonTimeControlContinue)
             {
+                activeState = OptState.smooth;
                 StateHandleOVRInput(DrawPos.right);
                 buttonPreTime = Time.time;
             }
-            else if (Axis1D_RB > 0 && (Time.time - buttonPreTime) > buttonTimeControl)
+            else if (Axis1D_RB > 0 && (Time.time - buttonPreTime) > ButtonTimeControlContinue)
             {
+                activeState = OptState.create;
+                StateHandleOVRInput(DrawPos.right);
+                buttonPreTime = Time.time;
+            }
+            else if (Axis1D_RT > 0 && (Time.time - buttonPreTime) > ButtonTimeControlContinue)
+            {
+                activeState = OptState.delete;
                 StateHandleOVRInput(DrawPos.right);
                 buttonPreTime = Time.time;
             }
 
-            if (Axis2D_L.y >= 0)
+            // size
+            if ((Axis2D_LB_Up || Axis2D_RB_Up) && (Time.time - buttonPreTime) > ButtonTimeControlSingle)
             {
-                leftChildPos.z = Axis2D_L.y * 20;
+                if (optRange < 10)
+                {
+                    optRange += 2;
+                }
+                buttonPreTime = Time.time;
+            }
+            if ((Axis2D_LB_Down || Axis2D_RB_Down) && (Time.time - buttonPreTime) > ButtonTimeControlSingle)
+            {
+                if (optRange >= 4)
+                {
+                    optRange -= 2;
+                }
+                buttonPreTime = Time.time;
             }
 
-            if (Axis2D_R.y >= 0)
+            // shape
+            if ((Axis2D_LB_Left || Axis2D_RB_Left || Axis2D_LB_Right || Axis2D_RB_Right) && (Time.time - buttonPreTime) > ButtonTimeControlSingle)
             {
-                rightChildPos.z = Axis2D_R.y * 20;
+                if (activeShape == OptShape.cube)
+                {
+                    activeShape = OptShape.sphere;
+                }
+                else
+                {
+                    activeShape = OptShape.cube;
+                }
+                buttonPreTime = Time.time;
             }
+
+            //if (Axis2D_L.y >= 0)
+            //{
+            //    leftChildPos.z = Axis2D_L.y * 20;
+            //}
+            //if (Axis2D_R.y >= 0)
+            //{
+            //    rightChildPos.z = Axis2D_R.y * 20;
+            //}
         }
 
     }
 
     private void mainPanelHandleOVRInput()
     {
-        if ((Axis2D_RB_Left || Axis2D_LB_Left) && (Time.time - buttonPreTime) > buttonTimeControl)
+        if ((Axis2D_RB_Left || Axis2D_LB_Left) && (Time.time - buttonPreTime) > ButtonTimeControlSingle)
         {
             activePanel = ControlPanel.shape;
             buttonPreTime = Time.time;
         }
-        if ((Axis2D_RB_Right || Axis2D_LB_Right) && (Time.time - buttonPreTime) > buttonTimeControl)
+        if ((Axis2D_RB_Right || Axis2D_LB_Right) && (Time.time - buttonPreTime) > ButtonTimeControlSingle)
         {
             activePanel = ControlPanel.color;
             buttonPreTime = Time.time;
         }
-        if ((Axis2D_RB_Up || Axis2D_LB_Up) && (Time.time - buttonPreTime) > buttonTimeControl)
+        if ((Axis2D_RB_Up || Axis2D_LB_Up) && (Time.time - buttonPreTime) > ButtonTimeControlSingle)
         {
             activePanel = ControlPanel.state;
             buttonPreTime = Time.time;
         }
-        if (((Axis2D_RB_Down || Axis2D_LB_Down) || (Axis2D_RB_Center || Axis2D_LB_Center)) && (Time.time - buttonPreTime) > buttonTimeControl)
+        if (((Axis2D_RB_Down || Axis2D_LB_Down) || (Axis2D_RB_Center || Axis2D_LB_Center)) && (Time.time - buttonPreTime) > ButtonTimeControlSingle)
         {
             activePanel = ControlPanel.empty;
             buttonPreTime = Time.time;
@@ -280,25 +338,25 @@ public class HandBehaviour : MonoBehaviour {
 
     private void statePanelHandleOVRInput()
     {
-        if ((Axis2D_RB_Left || Axis2D_LB_Left) && (Time.time - buttonPreTime) > buttonTimeControl)
+        if ((Axis2D_RB_Left || Axis2D_LB_Left) && (Time.time - buttonPreTime) > ButtonTimeControlSingle)
         {
             activeState = OptState.delete;
             activePanel = ControlPanel.empty;
             buttonPreTime = Time.time;
         }
-        if ((Axis2D_RB_Right || Axis2D_LB_Right) && (Time.time - buttonPreTime) > buttonTimeControl)
+        if ((Axis2D_RB_Right || Axis2D_LB_Right) && (Time.time - buttonPreTime) > ButtonTimeControlSingle)
         {
             activeState = OptState.smooth;
             activePanel = ControlPanel.empty;
             buttonPreTime = Time.time;
         }
-        if ((Axis2D_RB_Up || Axis2D_LB_Up) && (Time.time - buttonPreTime) > buttonTimeControl)
+        if ((Axis2D_RB_Up || Axis2D_LB_Up) && (Time.time - buttonPreTime) > ButtonTimeControlSingle)
         {
             activeState = OptState.create;
             activePanel = ControlPanel.empty;
             buttonPreTime = Time.time;
         }
-        if (((Axis2D_RB_Down || Axis2D_LB_Down) || (Axis2D_RB_Center || Axis2D_LB_Center)) && (Time.time - buttonPreTime) > buttonTimeControl)
+        if (((Axis2D_RB_Down || Axis2D_LB_Down) || (Axis2D_RB_Center || Axis2D_LB_Center)) && (Time.time - buttonPreTime) > ButtonTimeControlSingle)
         {
             activePanel = ControlPanel.empty;
             buttonPreTime = Time.time;
@@ -307,7 +365,7 @@ public class HandBehaviour : MonoBehaviour {
 
     private void shapePanelHandleOVRInput()
     {
-        if ((Axis2D_RB_Left || Axis2D_LB_Left) && (Time.time - buttonPreTime) > buttonTimeControl)
+        if ((Axis2D_RB_Left || Axis2D_LB_Left) && (Time.time - buttonPreTime) > ButtonTimeControlSingle)
         {
             if (activeShape >= OptShape.cylinder)
             {
@@ -319,7 +377,7 @@ public class HandBehaviour : MonoBehaviour {
             }
             buttonPreTime = Time.time;
         }
-        if ((Axis2D_RB_Right || Axis2D_LB_Right) && (Time.time - buttonPreTime) > buttonTimeControl)
+        if ((Axis2D_RB_Right || Axis2D_LB_Right) && (Time.time - buttonPreTime) > ButtonTimeControlSingle)
         {
             if (activeShape <= OptShape.cube)
             {
@@ -331,13 +389,13 @@ public class HandBehaviour : MonoBehaviour {
             }
             buttonPreTime = Time.time;
         }
-        if ((Axis2D_RB_Up || Axis2D_LB_Up) && (Time.time - buttonPreTime) > buttonTimeControl)
+        if ((Axis2D_RB_Up || Axis2D_LB_Up) && (Time.time - buttonPreTime) > ButtonTimeControlSingle)
         {
             rightChildPos.z = 0;
             optRange += 2;
             buttonPreTime = Time.time;
         }
-        if ((Axis2D_RB_Down || Axis2D_LB_Down) && (Time.time - buttonPreTime) > buttonTimeControl)
+        if ((Axis2D_RB_Down || Axis2D_LB_Down) && (Time.time - buttonPreTime) > ButtonTimeControlSingle)
         {
             rightChildPos.z = 0;
             optRange -= 2;
@@ -346,7 +404,7 @@ public class HandBehaviour : MonoBehaviour {
             }
             buttonPreTime = Time.time;
         }
-        if ((Axis2D_RB_Center || Axis2D_LB_Center) && (Time.time - buttonPreTime) > buttonTimeControl)
+        if ((Axis2D_RB_Center || Axis2D_LB_Center) && (Time.time - buttonPreTime) > ButtonTimeControlSingle)
         {
             activePanel = ControlPanel.empty;
             buttonPreTime = Time.time;
@@ -355,7 +413,7 @@ public class HandBehaviour : MonoBehaviour {
 
     private void colorPanelHandleOVRInput()
     {
-        if ((Axis1D_LB > 0 || Axis1D_RB > 0) && (Time.time - buttonPreTime) > buttonTimeControl)
+        if ((Axis1D_LB > 0 || Axis1D_RB > 0) && (Time.time - buttonPreTime) > ButtonTimeControlSingle)
         {
             activePanel = ControlPanel.empty;
             buttonPreTime = Time.time;
@@ -398,7 +456,7 @@ public class HandBehaviour : MonoBehaviour {
         Button_X = OVRInput.Get(OVRInput.Button.Three);
         Button_Y = OVRInput.Get(OVRInput.Button.Four);
 
-        if (Button_A && (Time.time - buttonPreTime) > buttonTimeControl)
+        if (Button_A && (Time.time - buttonPreTime) > ButtonTimeControlSingle)
         {
             activeDrawPos = DrawPos.right;
             if (activePanel >= ControlPanel.readfile)
@@ -411,14 +469,14 @@ public class HandBehaviour : MonoBehaviour {
             }
             buttonPreTime = Time.time;
         }
-        if (Button_B && (Time.time - buttonPreTime) > buttonTimeControl)
+        if (Button_B && (Time.time - buttonPreTime) > ButtonTimeControlSingle)
         {
             activeDrawPos = DrawPos.right;
             activeInfoPanel = InfoPanel.info;
             buttonPreTime = Time.time;
         }
 
-        if (Button_X && (Time.time - buttonPreTime) > buttonTimeControl)
+        if (Button_X && (Time.time - buttonPreTime) > ButtonTimeControlSingle)
         {
             activeDrawPos = DrawPos.left;
             if (activePanel >= ControlPanel.readfile)
@@ -431,7 +489,7 @@ public class HandBehaviour : MonoBehaviour {
             }
             buttonPreTime = Time.time;
         }
-        if (Button_Y && (Time.time - buttonPreTime) > buttonTimeControl)
+        if (Button_Y && (Time.time - buttonPreTime) > ButtonTimeControlSingle)
         {
             activeDrawPos = DrawPos.left;
             activeInfoPanel = InfoPanel.info;
@@ -488,7 +546,7 @@ public class HandBehaviour : MonoBehaviour {
             tempDrawPosScaled = twiceChildPositionScale;
             tempDrawRotate = new Vector3(0, 0, 0);
             Vector3 tempTwiceScale = trackAnchor.GetTwiceChildLocalScale() / 2;
-            tempDrawScale = (new Vector3(tempTwiceScale.x / VoxelWorldScale.x, tempTwiceScale.y / VoxelWorldScale.y, tempTwiceScale.z / VoxelWorldScale.z));
+            tempDrawScale = (new Vector3(tempTwiceScale.x / VoxelWorldTransform.localScale.x, tempTwiceScale.y / VoxelWorldTransform.localScale.y, tempTwiceScale.z / VoxelWorldTransform.localScale.z));
         }
 
         switch (activeState)

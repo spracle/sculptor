@@ -23,8 +23,8 @@ public class ProceduralTerrainVolume : MonoBehaviour
 	{
         //ProceduralTerrain();
         //ProceduralSphere();
-        //ProceduralVoxelVR();
-        LoadVDBFile();
+        ProceduralVoxelVR();
+        //LoadVDBFile();
     }
 
     public void LoadVDBFile()

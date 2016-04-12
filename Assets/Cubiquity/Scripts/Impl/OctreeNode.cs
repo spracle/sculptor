@@ -8,6 +8,7 @@ using System;
 using System.Collections;
 using System.Text;
 
+#if !CUBIQUITY_NATIVE_RENDERER
 namespace Cubiquity
 {
 	namespace Impl
@@ -34,7 +35,6 @@ namespace Cubiquity
 
 			public static GameObject CreateOctreeNode(uint nodeHandle, GameObject parentGameObject)
 			{
-                Profiler.BeginSample("CreateOctreeNode");
                 // Get node position from Cubiquity
                 CuOctreeNode cuOctreeNode = CubiquityDLL.GetOctreeNode(nodeHandle);
                 int xPos = cuOctreeNode.posX, yPos = cuOctreeNode.posY, zPos = cuOctreeNode.posZ;
@@ -73,9 +73,8 @@ namespace Cubiquity
                     // must be the root of the Octree. In this case we can use the position directly.
 					newGameObject.transform.localPosition = octreeNode.lowerCorner;
 				}
-                Profiler.EndSample();
-
-                return newGameObject;
+				
+				return newGameObject;
 			}
 
             public static void syncNode(ref uint availableSyncOperations, GameObject nodeGameObject, uint nodeHandle, GameObject voxelTerrainGameObject)
@@ -370,3 +369,4 @@ namespace Cubiquity
 		}
 	}
 }
+#endif

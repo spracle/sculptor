@@ -12,8 +12,7 @@ namespace Cubiquity
 	 */
 	public class TerrainVolumeRenderer : VolumeRenderer
 	{
-
-        void Awake()
+		void Awake()
 		{
 			if(material == null)
 			{

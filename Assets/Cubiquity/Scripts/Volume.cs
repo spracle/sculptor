@@ -1,12 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
-using Frankfort.Threading;
-using System.Threading;
+using System.Runtime.InteropServices;
 
 using Cubiquity.Impl;
-using System.Diagnostics;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -146,7 +143,9 @@ namespace Cubiquity
 		/// \cond
         [System.NonSerialized]
 		protected GameObject rootOctreeNodeGameObject;
-		/// \endcond
+        [System.NonSerialized]
+        protected System.IntPtr rootOctreeNode = System.IntPtr.Zero;
+        /// \endcond
 		
         // Used to check when the game object changes layer, so we can move the children to match.
 		private int previousLayer = -1;
@@ -207,7 +206,7 @@ namespace Cubiquity
 		void Awake()
 		{
 			RegisterVolumeData();
-        }
+		}
 		
 		void OnEnable()
 		{
@@ -244,7 +243,6 @@ namespace Cubiquity
 
         private void FlushInternalData()
         {
-            Profiler.BeginSample("FlushInternalData");
             // It should be enough to delete the root octree node in this function but we're seeing cases 
             // of octree nodes surviving the transition between edit and play modes. I'm not quite sure 
             // why, but the approach below of deleting all child objects seems to solve the problem.
@@ -263,12 +261,38 @@ namespace Cubiquity
             }
 
             rootOctreeNodeGameObject = null;
-            Profiler.EndSample();
+
+#if CUBIQUITY_NATIVE_RENDERER
+            if (rootOctreeNode != System.IntPtr.Zero)
+            {
+                DestroyOctreeNode(rootOctreeNode);
+                rootOctreeNode = System.IntPtr.Zero;
+            }
+#endif
         }
 
+#if CUBIQUITY_NATIVE_RENDERER
+        [DllImport("CubiquityPlugin")]
+        private static extern bool UpdateVolume(uint volumeHandle, System.IntPtr rootNode);
+        [DllImport("CubiquityPlugin")]
+        private static extern System.IntPtr CreateOctreeNode();
+        [DllImport("CubiquityPlugin")]
+        private static extern void DestroyOctreeNode(System.IntPtr octreeNode);
+
+        protected bool SynchronizeOctree(uint maxSyncOperations)
+        {
+            if (rootOctreeNode == System.IntPtr.Zero)
+            {
+                rootOctreeNode = CreateOctreeNode();
+            }
+
+            return UpdateVolume(data.volumeHandle.Value, rootOctreeNode);
+        }
+#else
         protected abstract bool SynchronizeOctree(uint maxSyncOperations);
-		
-		private void Update()
+#endif
+
+        private void Update()
 		{
             if (flushRequested)
             {

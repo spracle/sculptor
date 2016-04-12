@@ -75,7 +75,6 @@ namespace Cubiquity
 #if CUBIQUITY_USE_UNSAFE
             unsafe public static void BuildMeshFromNodeHandleForTerrainVolume(Mesh mesh, uint nodeHandle, bool onlyPositions)
             {
-                Profiler.BeginSample("BuildMeshFromNodeHandleForTerrainVolume");
                 // Get the data from Cubiquity.
                 ushort noOfVertices; TerrainVertex* vertices; uint noOfIndices; ushort* indices;
                 CubiquityDLL.GetTerrainMesh(nodeHandle, &noOfVertices, &vertices, &noOfIndices, &indices);
@@ -168,7 +167,6 @@ namespace Cubiquity
 
                 // Assign index data to the mesh.
                 mesh.triangles = indicesAsInt;
-                Profiler.EndSample();
             }
         }
     }

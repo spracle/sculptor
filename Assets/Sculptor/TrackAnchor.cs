@@ -16,6 +16,8 @@ public class TrackAnchor : MonoBehaviour {
     private GameObject rightHand = null;
     private GameObject rightHandChild = null;
 
+    private GameObject terrainWorld = null;
+
     private GameObject colorCube = null;
     private Vector3 colorCubeSize = new Vector3(0.2f, 0.2f, 0.2f);
     private float colorAlpha = 0.05f;
@@ -23,7 +25,7 @@ public class TrackAnchor : MonoBehaviour {
 
     private HandBehaviour handBehaviour;
     private TerrainVolume terrainVolume;
-    private Vector3 VoxelWorldScale = new Vector3(1f, 1f, 1f);
+    private Transform VoxelWorldTransform;
 
     private int optRange;
     private OptShape activeShape, nowShape;
@@ -46,9 +48,15 @@ public class TrackAnchor : MonoBehaviour {
     void Start () {
 
         terrainVolume = BasicProceduralVolume.GetComponent<TerrainVolume>();
-        VoxelWorldScale = terrainVolume.transform.localScale;
+        VoxelWorldTransform = terrainVolume.transform;
 
         handBehaviour = GetComponent<HandBehaviour>();
+
+        terrainWorld = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        materialColor = terrainWorld.transform.GetComponent<Renderer>().material.color;
+        materialColor.a = colorAlpha;
+        terrainWorld.transform.GetComponent<Renderer>().material.color = materialColor;
+        terrainWorld.transform.GetComponent<Renderer>().material.shader = Shader.Find("Transparent/Diffuse");
 
         rightHand = GameObject.CreatePrimitive(PrimitiveType.Cube);
         materialColor = rightHand.transform.GetComponent<Renderer>().material.color;
@@ -185,11 +193,11 @@ public class TrackAnchor : MonoBehaviour {
 
         leftHand.transform.position = leftHandAnchor.transform.position;
         leftHand.transform.rotation = leftHandAnchor.transform.rotation;
-        leftHand.transform.localScale = VoxelWorldScale * optRange;
+        leftHand.transform.localScale = VoxelWorldTransform.localScale * optRange;
 
         rightHand.transform.position = rightHandAnchor.transform.position;
         rightHand.transform.rotation = rightHandAnchor.transform.rotation;
-        rightHand.transform.localScale = VoxelWorldScale * optRange;
+        rightHand.transform.localScale = VoxelWorldTransform.localScale * optRange;
 
         Vector3 temp = rightHandAnchor.transform.position - leftHandAnchor.transform.position;
         twiceHand.transform.position = leftHandAnchor.transform.position + temp / 2;

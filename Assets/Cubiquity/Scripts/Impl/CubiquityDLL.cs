@@ -21,13 +21,13 @@ namespace Cubiquity
 
 		public class CubiquityDLL
 		{
-			private const string dllToImport = "CubiquityC";
+            private const string dllToImport = "CubiquityPlugin";
 			private static string logFilePath;
 			
 			const int CU_OK = 0;
 			
 			const uint requiredMajorVersion = 1;
-			const uint requiredMinorVersion = 2;
+			const uint requiredMinorVersion = 3;
 			const uint requiredPatchVersion = 0;
             const uint requiredBuildVersion = 0;
 			
@@ -38,8 +38,6 @@ namespace Cubiquity
 			{
 				try
 				{
-					Installation.ValidateAndFix();
-					
 					uint majorVersion;
 					uint minorVersion;
 					uint patchVersion;
@@ -412,7 +410,6 @@ namespace Cubiquity
             private static extern int cuGetMesh(uint octreeNodeHandle, out ushort noOfVertices, out IntPtr vertices, out uint noOfIndices, out IntPtr indices);
             public static void GetMesh<VertexType>(uint octreeNodeHandle, out VertexType[] vertices, out ushort[] indices)
             {
-                Profiler.BeginSample("GetMesh");
                 ushort noOfVertices;
                 IntPtr ptrVertices;
                 uint noOfIndices;
@@ -441,14 +438,13 @@ namespace Cubiquity
                     indices[ct] = (ushort)(Marshal.PtrToStructure(offsetPtr, typeof(ushort)));
                     longPtrIndices += Marshal.SizeOf(typeof(ushort));
                 }
-                Profiler.EndSample();
             }
 #endif
 
-            ////////////////////////////////////////////////////////////////////////////////
-            // Clock functions
-            ////////////////////////////////////////////////////////////////////////////////
-            [DllImport (dllToImport)]
+			////////////////////////////////////////////////////////////////////////////////
+			// Clock functions
+			////////////////////////////////////////////////////////////////////////////////
+			[DllImport (dllToImport)]
 			private static extern int cuGetCurrentTime(out uint result);
 			public static uint GetCurrentTime()
 			{
