@@ -5,8 +5,8 @@ public class HandCanvasControl : MonoBehaviour {
 
     public GameObject HandObject = null;
 
-    public GameObject rightHandAnchor = null;
     public GameObject leftHandAnchor = null;
+    public GameObject rightHandAnchor = null;
 
     public GameObject mainPanel;
     public GameObject statePanel;

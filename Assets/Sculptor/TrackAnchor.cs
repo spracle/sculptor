@@ -38,7 +38,7 @@ public class TrackAnchor : MonoBehaviour {
     private Vector3 rightChildPosition = new Vector3(0, 0, 0); // change z
 
     private GameObject twiceHand;
-    private bool openTwoHandDraw = false;
+    private HandOpt activeHandOpt = HandOpt.singleOpt;
     private ControlPanel showColorCube = ControlPanel.empty;
 
     private Vector3 ColorBlackPoint = new Vector3(0, 0, 0);
@@ -53,10 +53,10 @@ public class TrackAnchor : MonoBehaviour {
         handBehaviour = GetComponent<HandBehaviour>();
 
         terrainWorld = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        materialColor = terrainWorld.transform.GetComponent<Renderer>().material.color;
-        materialColor.a = colorAlpha;
-        terrainWorld.transform.GetComponent<Renderer>().material.color = materialColor;
-        terrainWorld.transform.GetComponent<Renderer>().material.shader = Shader.Find("Transparent/Diffuse");
+        //materialColor = terrainWorld.transform.GetComponent<Renderer>().material.color;
+        //materialColor.a = colorAlpha;
+        //terrainWorld.transform.GetComponent<Renderer>().material.color = materialColor;
+        //terrainWorld.transform.GetComponent<Renderer>().material.shader = Shader.Find("Transparent/Diffuse");
 
         rightHand = GameObject.CreatePrimitive(PrimitiveType.Cube);
         materialColor = rightHand.transform.GetComponent<Renderer>().material.color;
@@ -184,6 +184,10 @@ public class TrackAnchor : MonoBehaviour {
             activeShape = nowShape;
         }
 
+        terrainWorld.transform.position = terrainVolume.transform.position;
+        terrainWorld.transform.rotation = terrainVolume.transform.rotation;
+        terrainWorld.transform.localScale = terrainVolume.transform.localScale;
+
         // child first
         leftChildPosition.z = handBehaviour.GetLeftChildPosZ();
         rightChildPosition.z = handBehaviour.GetRightChildPosZ();
@@ -204,10 +208,10 @@ public class TrackAnchor : MonoBehaviour {
         twiceHand.transform.localScale = new Vector3(System.Math.Abs(temp.x), System.Math.Abs(temp.y), System.Math.Abs(temp.z));
 
         // twice hand
-        bool tempOpenTwoHandDraw = handBehaviour.GetOpenTwoHandDraw();
-        if (tempOpenTwoHandDraw != openTwoHandDraw)
+        HandOpt tempActiveHandOpt = handBehaviour.GetActiveHandOpt();
+        if (tempActiveHandOpt != activeHandOpt)
         {
-            if (tempOpenTwoHandDraw)
+            if (tempActiveHandOpt == HandOpt.pairOpt)
             {
                 leftHandChild.SetActive(false);
                 rightHandChild.SetActive(false);
@@ -220,7 +224,7 @@ public class TrackAnchor : MonoBehaviour {
                 twiceHand.SetActive(false);
             }
         }
-        openTwoHandDraw = tempOpenTwoHandDraw;
+        activeHandOpt = tempActiveHandOpt;
 
         // color 
         ControlPanel tempShowColorCube = handBehaviour.GetActivePanel();

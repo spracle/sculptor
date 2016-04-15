@@ -8,12 +8,14 @@ public enum InfoPanel { empty, start, info};
 public enum OptState { create, delete, smooth };
 public enum OptShape { cube, sphere, capsule, cylinder };
 public enum DrawPos {left, right, twice };
+public enum HandOpt { singleOpt, pairOpt, voxelWorldOpt };
 
 public class HandBehaviour : MonoBehaviour {
 
+    public GameObject BasicProceduralVolume = null;
+
     public GameObject leftHandAnchor = null;
     public GameObject rightHandAnchor = null;
-    public GameObject BasicProceduralVolume = null;
 
     private TrackAnchor trackAnchor;
 
@@ -36,12 +38,23 @@ public class HandBehaviour : MonoBehaviour {
     private Vector3 twiceChildPosition = new Vector3(0, 0, 0);
     private Vector3 twiceChildPositionScale = new Vector3(0, 0, 0);
 
+    private Vector3 VoxelWorldCenterPos;
+    private Vector3 VoxelWorldLeftHandPos;
+
+    private Vector3 VoxelWorldPreAngleDir;
+    private Vector3 VoxelWorldNowAngleDir;
+    private Quaternion VoxelWorldBasicAngle;
+
+    private Vector3 VoxelWorldBasicScale;
+    private float VoxelWorldPreScale;
+    private float VoxelWorldNowScale;
+
     private ControlPanel activePanel;
     private InfoPanel activeInfoPanel;
     private OptState activeState;
     private OptShape activeShape;
-
     private DrawPos activeDrawPos;
+    private HandOpt activeHandOpt;
 
     private float buttonPreTime = 0.0f;
     private float ButtonTimeControlSingle = 0.3f;
@@ -56,10 +69,8 @@ public class HandBehaviour : MonoBehaviour {
     private Vector3 rightRotateEuler;
     private Vector3 leftRotateEuler;
 
-    private Vector3 leftChildPos = new Vector3(0, 0, 0);
-    private Vector3 rightChildPos = new Vector3(0, 0, 0);
-
-    private bool openTwoHandDraw = false;
+    private Vector3 leftChildPos = new Vector3(0, 0, 1);
+    private Vector3 rightChildPos = new Vector3(0, 0, 1);
 
     private Color colorChose = Color.white;
 
@@ -132,8 +143,13 @@ public class HandBehaviour : MonoBehaviour {
         markTime = Time.time;
         activeInfoPanel = InfoPanel.start;
 
+        activeHandOpt = HandOpt.singleOpt;
+
         rightRotateEuler = new Vector3(0, 0, 0);
         leftRotateEuler = new Vector3(0, 0, 0);
+
+        VoxelWorldCenterPos = terrainVolume.transform.position;
+        VoxelWorldLeftHandPos = new Vector3(0, 0, 0);
     }
 	
 	// Update is called once per frame
@@ -208,27 +224,49 @@ public class HandBehaviour : MonoBehaviour {
 
     private void emptyPanelHandleOVRInput()
     {
-        if (Axis1D_LT > 0 && Axis1D_RT > 0)
+        if (Axis1D_LT >0 && Axis1D_RT > 0)
         {
-            // change the terrain volume transform
-            Vector3 tempCenterPos = (leftChildPosition + rightChildPosition) / 2;
+            if (activeHandOpt != HandOpt.voxelWorldOpt)
+            {
+                // first
+                VoxelWorldCenterPos = terrainVolume.transform.position;
+                VoxelWorldLeftHandPos = leftChildPosition;
+
+                VoxelWorldBasicAngle = terrainVolume.transform.rotation;
+                VoxelWorldPreAngleDir = rightChildPosition - leftChildPosition;
+
+                VoxelWorldBasicScale = terrainVolume.transform.localScale;
+                VoxelWorldPreScale = Vector3.Distance(rightChildPosition, leftChildPosition);
+            }
+            else
+            {
+                // continue
+                VoxelWorldNowAngleDir = rightChildPosition - leftChildPosition;
+                VoxelWorldNowScale = Vector3.Distance(rightChildPosition, leftChildPosition);
+
+                terrainVolume.transform.position = VoxelWorldCenterPos + (leftChildPosition - VoxelWorldLeftHandPos);
+                terrainVolume.transform.rotation = Quaternion.FromToRotation(VoxelWorldPreAngleDir, VoxelWorldNowAngleDir) * VoxelWorldBasicAngle;
+                terrainVolume.transform.localScale = VoxelWorldBasicScale * (VoxelWorldNowScale / VoxelWorldPreScale);
+            }
+            activeHandOpt = HandOpt.voxelWorldOpt;
         }
         else if (Axis1D_LB > 0 && Axis1D_RB > 0)
         {
             // two hand operator
-            openTwoHandDraw = true;
+            activeHandOpt = HandOpt.pairOpt;
         }
         else
         {
+
             // draw two hand result
-            if (openTwoHandDraw == true)
+            if (activeHandOpt == HandOpt.pairOpt)
             {
                 StateHandleOVRInput(DrawPos.twice);
                 buttonPreTime = Time.time;
             }
 
             // one hand operator
-            openTwoHandDraw = false;
+            activeHandOpt = HandOpt.singleOpt;
 
             if (Axis1D_LB > 0 && Axis1D_LT > 0 && optRange < 10 && (Time.time - buttonPreTime) > ButtonTimeControlContinue)
             {
@@ -901,8 +939,21 @@ public class HandBehaviour : MonoBehaviour {
         return activeDrawPos;
     }
 
-    public bool GetOpenTwoHandDraw()
+    public HandOpt GetActiveHandOpt()
     {
-        return openTwoHandDraw;
+        return activeHandOpt;
+    }
+
+    public float Angle360(Vector3 v1, Vector3 v2, Vector3 n)
+    {
+        //  Acute angle [0,180]
+        float angle = Vector3.Angle(v1, v2);
+
+        //  -Acute angle [180,-179]
+        float sign = Mathf.Sign(Vector3.Dot(n, Vector3.Cross(v1, v2)));
+        float signed_angle = angle * sign;
+
+        //  360 angle
+        return (signed_angle + 180) % 360;
     }
 }
