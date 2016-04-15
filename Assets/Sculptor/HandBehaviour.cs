@@ -25,9 +25,7 @@ public class HandBehaviour : MonoBehaviour {
     private MaterialSet colorMaterialSet;
 
     private Transform VoxelWorldTransform;
-
-    private Vector3 leftPosition = new Vector3(0, 0, 0);
-    private Vector3 rightPosition = new Vector3(0, 0, 0);
+    private Matrix4x4 VoxelWorldMatrix;
 
     private Vector3 rightChildPosition = new Vector3(0, 0, 0);
     private Vector3 rightChildPositionScaled = new Vector3(0, 0, 0);
@@ -58,7 +56,7 @@ public class HandBehaviour : MonoBehaviour {
 
     private float buttonPreTime = 0.0f;
     private float ButtonTimeControlSingle = 0.3f;
-    private float ButtonTimeControlContinue = 0.05f;
+    private float ButtonTimeControlContinue = 0.01f;
     private float markTime;
 
     private int optRange = 4;
@@ -168,22 +166,17 @@ public class HandBehaviour : MonoBehaviour {
             markTime = Time.time;
         }
 
-        leftPosition = (new Vector3(leftHandAnchor.transform.position.x / VoxelWorldTransform.localScale.x, leftHandAnchor.transform.position.y / VoxelWorldTransform.localScale.y, leftHandAnchor.transform.position.z / VoxelWorldTransform.localScale.z));
-        rightPosition = (new Vector3(rightHandAnchor.transform.position.x / VoxelWorldTransform.localScale.x, rightHandAnchor.transform.position.y / VoxelWorldTransform.localScale.y, rightHandAnchor.transform.position.z / VoxelWorldTransform.localScale.z));
-
-        leftChildPosition = trackAnchor.GetLeftChildPosition();
+        leftChildPosition = trackAnchor.GetLeftChildPosition() - VoxelWorldTransform.position;
         leftChildPositionScaled = (new Vector3(leftChildPosition.x / VoxelWorldTransform.localScale.x, leftChildPosition.y / VoxelWorldTransform.localScale.y, leftChildPosition.z / VoxelWorldTransform.localScale.z));
 
-        rightChildPosition = trackAnchor.GetRightChildPosition();
+        rightChildPosition = trackAnchor.GetRightChildPosition() - VoxelWorldTransform.position;
         rightChildPositionScaled = (new Vector3(rightChildPosition.x / VoxelWorldTransform.localScale.x, rightChildPosition.y / VoxelWorldTransform.localScale.y, rightChildPosition.z / VoxelWorldTransform.localScale.z));
 
-        twiceChildPosition = trackAnchor.GetTwiceChildPosition();
+        twiceChildPosition = trackAnchor.GetTwiceChildPosition() - VoxelWorldTransform.position;
         twiceChildPositionScale = (new Vector3(twiceChildPosition.x / VoxelWorldTransform.localScale.x, twiceChildPosition.y / VoxelWorldTransform.localScale.y, twiceChildPosition.z / VoxelWorldTransform.localScale.z));
 
-        rightRotateEuler = rightHandAnchor.transform.rotation.eulerAngles;
         leftRotateEuler = leftHandAnchor.transform.rotation.eulerAngles;
-
-        //Debug.Log(leftHandAnchor.transform.position);
+        rightRotateEuler = rightHandAnchor.transform.rotation.eulerAngles;
 
         Color tempcolor = trackAnchor.GetColorChose();
         if (colorChose != tempcolor)
@@ -730,6 +723,7 @@ public class HandBehaviour : MonoBehaviour {
                         for (int x = xPos - range.x; x < xPos + range.x; x++)
                         {
                             Vector3 temp = RotatePointAroundPivot(new Vector3(x, y, z),new Vector3(xPos, yPos, zPos), RotateEuler);
+                            temp = VoxelWorldTransform.InverseTransformPoint(temp) * VoxelWorldTransform.localScale.x;
                             Vector3i tempi = (Vector3i)(temp);
                             terrainVolume.data.SetVoxel(tempi.x, tempi.y, tempi.z, materialSet);
                         }

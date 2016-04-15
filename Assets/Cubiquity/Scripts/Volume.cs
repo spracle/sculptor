@@ -248,7 +248,7 @@ namespace Cubiquity
             // why, but the approach below of deleting all child objects seems to solve the problem.
 
             // Find all the child objects 
-            List <GameObject> childObjects = new List<GameObject>();
+            List<GameObject> childObjects = new List<GameObject>();
             foreach (Transform childTransform in gameObject.transform)
             {
                 childObjects.Add(childTransform.gameObject);
@@ -273,7 +273,7 @@ namespace Cubiquity
 
 #if CUBIQUITY_NATIVE_RENDERER
         [DllImport("CubiquityPlugin")]
-        private static extern bool UpdateVolume(uint volumeHandle, System.IntPtr rootNode);
+        private static extern bool UpdateVolume(uint volumeHandle, System.IntPtr rootNode, float[] worldMatrix);
         [DllImport("CubiquityPlugin")]
         private static extern System.IntPtr CreateOctreeNode();
         [DllImport("CubiquityPlugin")]
@@ -286,7 +286,7 @@ namespace Cubiquity
                 rootOctreeNode = CreateOctreeNode();
             }
 
-            return UpdateVolume(data.volumeHandle.Value, rootOctreeNode);
+            return UpdateVolume(data.volumeHandle.Value, rootOctreeNode, transform.localToWorldMatrix.toFloatArray());
         }
 #else
         protected abstract bool SynchronizeOctree(uint maxSyncOperations);
@@ -340,12 +340,6 @@ namespace Cubiquity
 				}
 			}
 
-            UpdateOctree();
-
-        }
-
-        private void UpdateOctree()
-        {
             if (data != null && data.volumeHandle.HasValue)
             {
                 // When we are in game mode we limit the number of nodes which we update per frame, to maintain a nice.
@@ -359,22 +353,21 @@ namespace Cubiquity
                     isMeshSyncronized = SynchronizeOctree(maxSyncOperationsInEditMode);
                 }
             }
-        }
-
+		}
 		/// \endcond
 
         // Public so that we can manually drive it from the editor as required,
         // but user code should not do this so it's hidden from the docs.
         /// \cond
         public void OnGUI()
-        {
+        {            
             // This code doesn't belong in Volume? There should
             // probably be one global copy of this, not one per volume.
 
-            GUILayout.BeginArea(new Rect(10, 10, 300, 300));
+            /*GUILayout.BeginArea(new Rect(10, 10, 300, 300));
             GUI.skin.label.alignment = TextAnchor.MiddleLeft;
             string debugPanelMessage = "Cubiquity Debug Panel\n";
-            if (isMeshSyncronized)
+            if(isMeshSyncronized)
             {
                 debugPanelMessage += "Mesh sync: Completed";
             }
@@ -383,7 +376,7 @@ namespace Cubiquity
                 debugPanelMessage += "Mesh sync: In progress...";
             }
             GUILayout.Box(debugPanelMessage);
-            GUILayout.EndArea();
+            GUILayout.EndArea();*/
         }
         /// \endcond
 
@@ -421,7 +414,7 @@ namespace Cubiquity
 							"Each volume data should only be used by a single volume - please see the Cubiquity for Unity3D user manual and API documentation for more information. " +
 							"\nBoth '" + existingVolumeName + "' and '" + volumeName + "' reference the volume data called '" + volumeDataName + "'." +
 							"\nNote: If you see this message regarding an asset which you have already deleted then you may need to close the scene and/or restart Unity.";
-                        UnityEngine.Debug.LogWarning(warningMessage);
+						Debug.LogWarning(warningMessage);
 					}
 				}
 				else
