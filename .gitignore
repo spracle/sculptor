@@ -1,1 +1,9 @@
 /Library
+!.gitignore
+*.log
+*.suo
+*.csproj
+*.sln
+*.pdb
+*.exp
+*.vdb
