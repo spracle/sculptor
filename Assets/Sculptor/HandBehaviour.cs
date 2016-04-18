@@ -20,6 +20,8 @@ public class HandBehaviour : MonoBehaviour {
     private TrackAnchor trackAnchor;
 
     private TerrainVolume terrainVolume;
+    private ProceduralTerrainVolume proceduralTerrainVolume;
+    private BoundIndicator boundIndicator;
 
     private MaterialSet emptyMaterialSet;
     private MaterialSet colorMaterialSet;
@@ -107,6 +109,8 @@ public class HandBehaviour : MonoBehaviour {
     void Start () {
 
         terrainVolume = BasicProceduralVolume.GetComponent<TerrainVolume>();
+        proceduralTerrainVolume = BasicProceduralVolume.GetComponent<ProceduralTerrainVolume>();
+        boundIndicator = proceduralTerrainVolume.gameObject.GetComponent<BoundIndicator>();
 
         if (leftHandAnchor == null || rightHandAnchor == null || BasicProceduralVolume == null)
         {
@@ -150,6 +154,22 @@ public class HandBehaviour : MonoBehaviour {
         VoxelWorldLeftHandPos = new Vector3(0, 0, 0);
     }
 	
+    private bool IsHandInVolume(bool leftHand = true)
+    {
+        if(proceduralTerrainVolume == null)
+        {
+            return false;
+        }
+
+        Vector3 handPos = leftHand ? trackAnchor.GetLeftChildPosition() : trackAnchor.GetRightChildPosition();
+
+        //todo: worldSpace
+        return (
+                handPos.x <= proceduralTerrainVolume.planetRadius && handPos.x >= -proceduralTerrainVolume.planetRadius && 
+                handPos.y <= proceduralTerrainVolume.planetRadius && handPos.y >= -proceduralTerrainVolume.planetRadius &&
+                handPos.z <= proceduralTerrainVolume.planetRadius && handPos.z >= -proceduralTerrainVolume.planetRadius);
+    }
+
 	// Update is called once per frame
 	void Update () {
 
@@ -164,6 +184,16 @@ public class HandBehaviour : MonoBehaviour {
         {
             activeInfoPanel = InfoPanel.empty;
             markTime = Time.time;
+        }
+
+
+        if(IsHandInVolume(true) && IsHandInVolume(false))
+        {
+            boundIndicator.Hide();
+        }
+        else
+        {
+            boundIndicator.Show();
         }
 
         leftChildPosition = trackAnchor.GetLeftChildPosition() - VoxelWorldTransform.position;
