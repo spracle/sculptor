@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 
 using Cubiquity;
@@ -37,9 +38,18 @@ public class VoxelStoreSmooth
     public float LowcornerZ { get; set; }
 }
 
+public class VoxelOpt
+{
+    public Vector3 Pos { get; set; }
+    public MaterialSet MaterialWeight { get; set; }
+}
+
 public class RecordBehaviour : MonoBehaviour {
 
-    System.IO.StreamWriter file;
+    private StreamWriter file;
+
+    private List<List<VoxelOpt>> optStack;
+    private int optPos = -1;
 
     // Use this for initialization
     void Awake () {
@@ -54,10 +64,33 @@ public class RecordBehaviour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
 
+    }
 
-	}
+    public void UnDo()
+    {
+
+    }
+
+    public void ReDo()
+    {
+
+    }
+
+    public void StartNewOperator()
+    {
+
+    }
+
+    public void PushOperator()
+    {
+
+    }
+
+    public void PopOperator()
+    {
+
+    }
 
     public void Write(Vector3i Pos, Vector3 RotateEuler, MaterialSet materialSet, Vector3i range, OptShape optshape, float mtime)
     {
