@@ -141,6 +141,7 @@ public class HandBehaviour : MonoBehaviour {
         markTime = Time.time;
         activeInfoPanel = InfoPanel.start;
 
+        activeShape = OptShape.sphere;
         activeHandOpt = HandOpt.singleOpt;
 
         rightRotateEuler = new Vector3(0, 0, 0);
@@ -219,6 +220,7 @@ public class HandBehaviour : MonoBehaviour {
     {
         if (Axis1D_LT >0 && Axis1D_RT > 0)
         {
+            // global position/rotation/scaling
             if (activeHandOpt != HandOpt.voxelWorldOpt)
             {
                 // first
@@ -247,6 +249,30 @@ public class HandBehaviour : MonoBehaviour {
         {
             // two hand operator
             activeHandOpt = HandOpt.pairOpt;
+            if((Axis2D_LB_Right || Axis2D_RB_Right) && (Time.time - buttonPreTime) > ButtonTimeControlSingle)
+            {
+                if (activeShape >= OptShape.cylinder)
+                {
+                    activeShape = OptShape.cube;
+                }
+                else
+                {
+                    activeShape++;
+                }
+                buttonPreTime = Time.time;
+            }
+            else if((Axis2D_LB_Left || Axis2D_RB_Left) && (Time.time - buttonPreTime) > ButtonTimeControlSingle)
+            {
+                if (activeShape <= OptShape.cube)
+                {
+                    activeShape = OptShape.cylinder;
+                }
+                else
+                {
+                    activeShape--;
+                }
+                buttonPreTime = Time.time;
+            }
         }
         else
         {
@@ -260,9 +286,14 @@ public class HandBehaviour : MonoBehaviour {
 
             // one hand operator
             activeHandOpt = HandOpt.singleOpt;
+            if (activeShape != OptShape.cube && activeShape != OptShape.sphere)
+            {
+                activeShape = OptShape.sphere;
+            }
 
             if (Axis1D_LB > 0 && Axis1D_LT > 0 && optRange < 10 && (Time.time - buttonPreTime) > ButtonTimeControlContinue)
             {
+                activeShape = OptShape.sphere;
                 activeState = OptState.smooth;
                 StateHandleOVRInput(DrawPos.left);
                 buttonPreTime = Time.time;
@@ -589,7 +620,7 @@ public class HandBehaviour : MonoBehaviour {
                 DestroyVoxels((Vector3i)tempDrawPosScaled, tempDrawRotate, (Vector3i)tempDrawScale, activeShape);
                 break;
             case OptState.smooth:
-                SmoothVoxels((Vector3i)tempDrawPosScaled, (Vector3i)tempDrawScale);
+                SmoothVoxels(tempDrawPosScaled, (Vector3i)tempDrawScale);
                 break;
         }
     }
@@ -746,6 +777,7 @@ public class HandBehaviour : MonoBehaviour {
                             if (distSquared < 1)
                             {
                                 Vector3 temp = RotatePointAroundPivot(new Vector3(x, y, z), new Vector3(xPos, yPos, zPos), RotateEuler);
+                                temp = VoxelWorldTransform.InverseTransformPoint(temp) * VoxelWorldTransform.localScale.x;
                                 Vector3i tempi = (Vector3i)(temp);
                                 terrainVolume.data.SetVoxel(tempi.x, tempi.y, tempi.z, materialSet);
                             }
@@ -770,6 +802,7 @@ public class HandBehaviour : MonoBehaviour {
                             if (distSquared < 1)
                             {
                                 Vector3 temp = RotatePointAroundPivot(new Vector3(x, y, z), new Vector3(xPos, yPos, zPos), RotateEuler);
+                                temp = VoxelWorldTransform.InverseTransformPoint(temp) * VoxelWorldTransform.localScale.x;
                                 Vector3i tempi = (Vector3i)(temp);
                                 terrainVolume.data.SetVoxel(tempi.x, tempi.y, tempi.z, materialSet);
                             }
@@ -793,6 +826,7 @@ public class HandBehaviour : MonoBehaviour {
                             if (distSquared < 1)
                             {
                                 Vector3 temp = RotatePointAroundPivot(new Vector3(x, y, z), new Vector3(xPos, yPos, zPos), RotateEuler);
+                                temp = VoxelWorldTransform.InverseTransformPoint(temp) * VoxelWorldTransform.localScale.x;
                                 Vector3i tempi = (Vector3i)(temp);
                                 terrainVolume.data.SetVoxel(tempi.x, tempi.y, tempi.z, materialSet);
                             }
@@ -817,6 +851,7 @@ public class HandBehaviour : MonoBehaviour {
                             if (distSquared < 1)
                             {
                                 Vector3 temp = RotatePointAroundPivot(new Vector3(x, y, z), new Vector3(xPos, yPos, zPos), RotateEuler);
+                                temp = VoxelWorldTransform.InverseTransformPoint(temp) * VoxelWorldTransform.localScale.x;
                                 Vector3i tempi = (Vector3i)(temp);
                                 terrainVolume.data.SetVoxel(tempi.x, tempi.y, tempi.z, materialSet);
                             }
@@ -841,6 +876,7 @@ public class HandBehaviour : MonoBehaviour {
                             if (distSquared < 1)
                             {
                                 Vector3 temp = RotatePointAroundPivot(new Vector3(x, y, z), new Vector3(xPos, yPos, zPos), RotateEuler);
+                                temp = VoxelWorldTransform.InverseTransformPoint(temp) * VoxelWorldTransform.localScale.x;
                                 Vector3i tempi = (Vector3i)(temp);
                                 terrainVolume.data.SetVoxel(tempi.x, tempi.y, tempi.z, materialSet);
                             }
@@ -864,18 +900,24 @@ public class HandBehaviour : MonoBehaviour {
         VoxelSetting(Pos, RotateEular, materialSet, range, optshape);
     }
 
-    private void SmoothVoxels(Vector3i Pos, Vector3i range)
+    private void SmoothVoxels(Vector3 Pos, Vector3i range)
     {
-        TerrainVolumeEditor.BlurTerrainVolume(terrainVolume, new Region(Pos.x - range.x, Pos.y - range.y, Pos.z - range.z, Pos.x + range.x, Pos.y + range.y, Pos.z + range.z));
+        Vector3 tempPos = VoxelWorldTransform.InverseTransformPoint(Pos) * VoxelWorldTransform.localScale.x;
+        Vector3i tempPosi = (Vector3i)tempPos;
+        TerrainVolumeEditor.BlurTerrainVolume(terrainVolume, new Region(tempPosi.x - range.x, tempPosi.y - range.y, tempPosi.z - range.z, tempPosi.x + range.x, tempPosi.y + range.y, tempPosi.z + range.z));
     }
 
     private void PaintVoxels(Vector3 Pos, float brushInnerRadius, float brushOuterRadius, float amount, uint materialIndex)
     {
+        Vector3 tempPos = VoxelWorldTransform.InverseTransformPoint(Pos) * VoxelWorldTransform.localScale.x;
+        Vector3i tempPosi = (Vector3i)tempPos;
         TerrainVolumeEditor.PaintTerrainVolume(terrainVolume, Pos.x, Pos.y, Pos.z, brushInnerRadius, brushOuterRadius, amount, materialIndex);
     }
 
     private void SculptVoxels(Vector3 Pos, float brushInnerRadius, float brushOuterRadius, float amount)
     {
+        Vector3 tempPos = VoxelWorldTransform.InverseTransformPoint(Pos) * VoxelWorldTransform.localScale.x;
+        Vector3i tempPosi = (Vector3i)tempPos;
         TerrainVolumeEditor.SculptTerrainVolume(terrainVolume, Pos.x, Pos.y, Pos.z, brushInnerRadius, brushOuterRadius, amount);
     }
 

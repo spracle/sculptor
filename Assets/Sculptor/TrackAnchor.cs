@@ -121,40 +121,48 @@ public class TrackAnchor : MonoBehaviour {
                     UnityEngine.Object.Destroy(rightHandChild.gameObject);
                     UnityEngine.Object.Destroy(leftHand.gameObject);
                     UnityEngine.Object.Destroy(leftHandChild.gameObject);
+                    UnityEngine.Object.Destroy(twiceHand.gameObject);
                     leftHand = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     leftHandChild = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     rightHand = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     rightHandChild = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    twiceHand = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     break;
                 case OptShape.sphere:
                     UnityEngine.Object.Destroy(rightHand.gameObject);
                     UnityEngine.Object.Destroy(rightHandChild.gameObject);
                     UnityEngine.Object.Destroy(leftHand.gameObject);
                     UnityEngine.Object.Destroy(leftHandChild.gameObject);
+                    UnityEngine.Object.Destroy(twiceHand.gameObject);
                     leftHand = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                     leftHandChild = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                     rightHand = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                     rightHandChild = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                    twiceHand = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                     break;
                 case OptShape.cylinder:
                     UnityEngine.Object.Destroy(rightHand.gameObject);
                     UnityEngine.Object.Destroy(rightHandChild.gameObject);
                     UnityEngine.Object.Destroy(leftHand.gameObject);
                     UnityEngine.Object.Destroy(leftHandChild.gameObject);
+                    UnityEngine.Object.Destroy(twiceHand.gameObject);
                     leftHand = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
                     leftHandChild = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
                     rightHand = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
                     rightHandChild = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                    twiceHand = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
                     break;
                 case OptShape.capsule:
                     UnityEngine.Object.Destroy(rightHand.gameObject);
                     UnityEngine.Object.Destroy(rightHandChild.gameObject);
                     UnityEngine.Object.Destroy(leftHand.gameObject);
                     UnityEngine.Object.Destroy(leftHandChild.gameObject);
+                    UnityEngine.Object.Destroy(twiceHand.gameObject);
                     leftHand = GameObject.CreatePrimitive(PrimitiveType.Capsule);
                     leftHandChild = GameObject.CreatePrimitive(PrimitiveType.Capsule);
                     rightHand = GameObject.CreatePrimitive(PrimitiveType.Capsule);
                     rightHandChild = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+                    twiceHand = GameObject.CreatePrimitive(PrimitiveType.Capsule);
                     break;
             }
             materialColor = rightHand.transform.GetComponent<Renderer>().material.color;
@@ -182,6 +190,19 @@ public class TrackAnchor : MonoBehaviour {
             leftHandChild.transform.GetComponent<Renderer>().material.shader = Shader.Find("Transparent/Diffuse");
 
             activeShape = nowShape;
+
+            if (activeHandOpt == HandOpt.pairOpt)
+            {
+                leftHandChild.SetActive(false);
+                rightHandChild.SetActive(false);
+                twiceHand.SetActive(true);
+            }
+            else
+            {
+                leftHandChild.SetActive(true);
+                rightHandChild.SetActive(true);
+                twiceHand.SetActive(false);
+            }
         }
 
         terrainWorld.transform.position = terrainVolume.transform.position;
@@ -204,6 +225,7 @@ public class TrackAnchor : MonoBehaviour {
         rightHand.transform.localScale = VoxelWorldTransform.localScale * optRange;
 
         Vector3 temp = rightHandAnchor.transform.position - leftHandAnchor.transform.position;
+        //twiceHand.transform.rotation = Quaternion.Euler(0, 0, 90);
         twiceHand.transform.position = leftHandAnchor.transform.position + temp / 2;
         twiceHand.transform.localScale = new Vector3(System.Math.Abs(temp.x), System.Math.Abs(temp.y), System.Math.Abs(temp.z));
 
