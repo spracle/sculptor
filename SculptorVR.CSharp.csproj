@@ -62,6 +62,9 @@
     <Reference Include="System.Drawing">
       <HintPath>Assets\CapturePanorama\Managed Plugins\System.Drawing.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Assets\Plugins\x86_64\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\CapturePanorama\CapturePanorama.cs" />
@@ -196,6 +199,8 @@
     <None Include="Assets\OVR\Moonlight\Resources\Unlit Transparent Color.shader" />
     <None Include="Assets\OVR\Moonlight\Shaders\OVRColorRampAlpha.shader" />
     <None Include="Assets\OVR\Moonlight\Shaders\Unlit Crosshair.shader" />
+    <None Include="Assets\Plugins\x86_64\Newtonsoft.Json.dll.CodeAnalysisLog.xml" />
+    <None Include="Assets\Plugins\x86_64\Newtonsoft.Json.xml" />
     <None Include="Assets\Sculptor\Scene\UnityVC\StandardSpecularVC.shader" />
     <None Include="Assets\Sculptor\Scene\UnityVC\StandardVC.shader" />
     <None Include="Assets\Sculptor\Scene\UnityVC\UnityVC.cginc" />

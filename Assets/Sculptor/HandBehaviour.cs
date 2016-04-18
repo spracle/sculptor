@@ -172,9 +172,9 @@ public class HandBehaviour : MonoBehaviour {
 
         //todo: worldSpace
         return (
-                handPos.x <= proceduralTerrainVolume.planetRadius && handPos.x >= -proceduralTerrainVolume.planetRadius && 
-                handPos.y <= proceduralTerrainVolume.planetRadius && handPos.y >= -proceduralTerrainVolume.planetRadius &&
-                handPos.z <= proceduralTerrainVolume.planetRadius && handPos.z >= -proceduralTerrainVolume.planetRadius);
+                handPos.x <= proceduralTerrainVolume.planetRadius * VoxelWorldTransform.localScale.x && handPos.x >= -proceduralTerrainVolume.planetRadius * VoxelWorldTransform.localScale.x && 
+                handPos.y <= proceduralTerrainVolume.planetRadius * VoxelWorldTransform.localScale.y && handPos.y >= -proceduralTerrainVolume.planetRadius * VoxelWorldTransform.localScale.y &&
+                handPos.z <= proceduralTerrainVolume.planetRadius * VoxelWorldTransform.localScale.z && handPos.z >= -proceduralTerrainVolume.planetRadius * VoxelWorldTransform.localScale.z);
     }
 
 	// Update is called once per frame
@@ -928,11 +928,13 @@ public class HandBehaviour : MonoBehaviour {
     private void DestroyVoxels(Vector3i Pos, Vector3 RotateEular, Vector3i range, OptShape optshape)
     {
         MaterialSet emptyMaterialSet = new MaterialSet();
+        recordBehaviour.Write(Pos, RotateEular, emptyMaterialSet, range, optshape, Time.time - appStartTime);
         VoxelSetting(Pos, RotateEular, emptyMaterialSet, range, optshape);
     }
 
     private void CreateVoxels(Vector3i Pos, Vector3 RotateEular, MaterialSet materialSet, Vector3i range, OptShape optshape)
     {
+        recordBehaviour.Write(Pos, RotateEular, materialSet, range, optshape, Time.time - appStartTime);
         VoxelSetting(Pos, RotateEular, materialSet, range, optshape);
     }
 
@@ -940,6 +942,7 @@ public class HandBehaviour : MonoBehaviour {
     {
         Vector3 tempPos = VoxelWorldTransform.InverseTransformPoint(Pos) * VoxelWorldTransform.localScale.x;
         Vector3i tempPosi = (Vector3i)tempPos;
+        recordBehaviour.WriteSmooth(new Region(tempPosi.x - range.x, tempPosi.y - range.y, tempPosi.z - range.z, tempPosi.x + range.x, tempPosi.y + range.y, tempPosi.z + range.z), Time.time - appStartTime);
         TerrainVolumeEditor.BlurTerrainVolume(terrainVolume, new Region(tempPosi.x - range.x, tempPosi.y - range.y, tempPosi.z - range.z, tempPosi.x + range.x, tempPosi.y + range.y, tempPosi.z + range.z));
     }
 
