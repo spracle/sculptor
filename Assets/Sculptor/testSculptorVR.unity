@@ -449,6 +449,20 @@ Transform:
   - {fileID: 567557955}
   m_Father: {fileID: 858757838}
   m_RootOrder: 0
+--- !u!114 &368877020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5775844f6e499034eb955d3c113ed57e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  basePath: 2
+  relativePathToVoxelDatabase: D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_68985265.vdb
+  mWritePermissions: 1
 --- !u!1 &406002970
 GameObject:
   m_ObjectHideFlags: 0
@@ -605,7 +619,7 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -0.09302246, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 322748621}
   m_RootOrder: 0
@@ -702,7 +716,7 @@ Transform:
   m_LocalRotation: {x: -0.684209, y: 0.4338543, z: -0.15145232, w: -0.5662956}
   m_LocalPosition: {x: 128, y: 64, z: 128}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 65.0051, y: -137.7446, z: -87.5801}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -849,7 +863,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -871,7 +885,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
 --- !u!4 &788308655
 Transform:
   m_ObjectHideFlags: 0
@@ -911,6 +925,9 @@ GameObject:
   - 114: {fileID: 826901848}
   - 114: {fileID: 826901851}
   - 114: {fileID: 826901850}
+  - 33: {fileID: 826901854}
+  - 23: {fileID: 826901853}
+  - 114: {fileID: 826901852}
   m_Layer: 0
   m_Name: BasicProceduralVolume
   m_TagString: Untagged
@@ -932,6 +949,7 @@ MonoBehaviour:
   materialWeight2: 255
   materialWeight1: 0
   materialWeight0: 0
+  planetRadius: 128
 --- !u!4 &826901849
 Transform:
   m_ObjectHideFlags: 0
@@ -973,7 +991,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 045d67dae0d4c514a8e6add34c63a804, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mData: {fileID: 1296893664}
+  mData: {fileID: 368877020}
+--- !u!114 &826901852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 826901847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91271449d92132046846f0470a521a0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!23 &826901853
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 826901847}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!33 &826901854
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 826901847}
+  m_Mesh: {fileID: 0}
 --- !u!1 &858757837
 GameObject:
   m_ObjectHideFlags: 0
@@ -1148,20 +1210,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1218098105}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1296893664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5775844f6e499034eb955d3c113ed57e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  basePath: 2
-  relativePathToVoxelDatabase: D:/unitysculptor/SculptorVR/Assets/StreamingAssets/Cubiquity/VoxelDatabases/VRSculptor_1414694941.vdb
-  mWritePermissions: 1
 --- !u!1 &1300825807
 GameObject:
   m_ObjectHideFlags: 0
@@ -1433,6 +1481,7 @@ GameObject:
   - 4: {fileID: 1519644884}
   - 114: {fileID: 1519644883}
   - 114: {fileID: 1519644885}
+  - 114: {fileID: 1519644886}
   m_Layer: 0
   m_Name: HandObject
   m_TagString: Untagged
@@ -1482,6 +1531,17 @@ MonoBehaviour:
   BasicProceduralVolume: {fileID: 826901847}
   leftHandAnchor: {fileID: 250534754}
   rightHandAnchor: {fileID: 1696910535}
+--- !u!114 &1519644886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1519644882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bf98c049af1f8c46b8790c43182833f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1622141996
 GameObject:
   m_ObjectHideFlags: 0

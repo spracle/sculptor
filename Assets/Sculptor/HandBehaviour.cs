@@ -18,8 +18,11 @@ public class HandBehaviour : MonoBehaviour {
     public GameObject rightHandAnchor = null;
 
     private TrackAnchor trackAnchor;
+    private RecordBehaviour recordBehaviour;
 
     private TerrainVolume terrainVolume;
+    private ProceduralTerrainVolume proceduralTerrainVolume;
+    private BoundIndicator boundIndicator;
 
     private MaterialSet emptyMaterialSet;
     private MaterialSet colorMaterialSet;
@@ -72,6 +75,8 @@ public class HandBehaviour : MonoBehaviour {
 
     private Color colorChose = Color.white;
 
+    private float appStartTime;
+
     // -- OVRInput Info
 
     // Axis2D
@@ -106,7 +111,11 @@ public class HandBehaviour : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
+        appStartTime = Time.time;
+
         terrainVolume = BasicProceduralVolume.GetComponent<TerrainVolume>();
+        proceduralTerrainVolume = BasicProceduralVolume.GetComponent<ProceduralTerrainVolume>();
+        boundIndicator = proceduralTerrainVolume.gameObject.GetComponent<BoundIndicator>();
 
         if (leftHandAnchor == null || rightHandAnchor == null || BasicProceduralVolume == null)
         {
@@ -120,6 +129,7 @@ public class HandBehaviour : MonoBehaviour {
         VoxelWorldTransform = terrainVolume.transform;
 
         trackAnchor = GetComponent<TrackAnchor>();
+        recordBehaviour = GetComponent<RecordBehaviour>();
 
         // empty
         emptyMaterialSet = new MaterialSet();
@@ -151,6 +161,22 @@ public class HandBehaviour : MonoBehaviour {
         VoxelWorldLeftHandPos = new Vector3(0, 0, 0);
     }
 	
+    private bool IsHandInVolume(bool leftHand = true)
+    {
+        if(proceduralTerrainVolume == null)
+        {
+            return false;
+        }
+
+        Vector3 handPos = leftHand ? trackAnchor.GetLeftChildPosition() : trackAnchor.GetRightChildPosition();
+
+        //todo: worldSpace
+        return (
+                handPos.x <= proceduralTerrainVolume.planetRadius * VoxelWorldTransform.localScale.x && handPos.x >= -proceduralTerrainVolume.planetRadius * VoxelWorldTransform.localScale.x && 
+                handPos.y <= proceduralTerrainVolume.planetRadius * VoxelWorldTransform.localScale.y && handPos.y >= -proceduralTerrainVolume.planetRadius * VoxelWorldTransform.localScale.y &&
+                handPos.z <= proceduralTerrainVolume.planetRadius * VoxelWorldTransform.localScale.z && handPos.z >= -proceduralTerrainVolume.planetRadius * VoxelWorldTransform.localScale.z);
+    }
+
 	// Update is called once per frame
 	void Update () {
 
@@ -165,6 +191,16 @@ public class HandBehaviour : MonoBehaviour {
         {
             activeInfoPanel = InfoPanel.empty;
             markTime = Time.time;
+        }
+
+
+        if(IsHandInVolume(true) && IsHandInVolume(false))
+        {
+            boundIndicator.Hide();
+        }
+        else
+        {
+            boundIndicator.Show();
         }
 
         leftChildPosition = trackAnchor.GetLeftChildPosition() - VoxelWorldTransform.position;
@@ -892,11 +928,13 @@ public class HandBehaviour : MonoBehaviour {
     private void DestroyVoxels(Vector3i Pos, Vector3 RotateEular, Vector3i range, OptShape optshape)
     {
         MaterialSet emptyMaterialSet = new MaterialSet();
+        recordBehaviour.Write(Pos, RotateEular, emptyMaterialSet, range, optshape, Time.time - appStartTime);
         VoxelSetting(Pos, RotateEular, emptyMaterialSet, range, optshape);
     }
 
     private void CreateVoxels(Vector3i Pos, Vector3 RotateEular, MaterialSet materialSet, Vector3i range, OptShape optshape)
     {
+        recordBehaviour.Write(Pos, RotateEular, materialSet, range, optshape, Time.time - appStartTime);
         VoxelSetting(Pos, RotateEular, materialSet, range, optshape);
     }
 
@@ -904,6 +942,7 @@ public class HandBehaviour : MonoBehaviour {
     {
         Vector3 tempPos = VoxelWorldTransform.InverseTransformPoint(Pos) * VoxelWorldTransform.localScale.x;
         Vector3i tempPosi = (Vector3i)tempPos;
+        recordBehaviour.WriteSmooth(new Region(tempPosi.x - range.x, tempPosi.y - range.y, tempPosi.z - range.z, tempPosi.x + range.x, tempPosi.y + range.y, tempPosi.z + range.z), Time.time - appStartTime);
         TerrainVolumeEditor.BlurTerrainVolume(terrainVolume, new Region(tempPosi.x - range.x, tempPosi.y - range.y, tempPosi.z - range.z, tempPosi.x + range.x, tempPosi.y + range.y, tempPosi.z + range.z));
     }
 

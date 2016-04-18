@@ -17,6 +17,7 @@ public class ProceduralTerrainVolume : MonoBehaviour
     public int materialWeight2 = 255;
     public int materialWeight1 = 0;
     public int materialWeight0 = 0;
+    public int planetRadius = 128;
 
     // Use this for initialization
     void Start()
@@ -55,7 +56,6 @@ public class ProceduralTerrainVolume : MonoBehaviour
 
         // create the world Voxel dataset
 
-        int planetRadius = 128;
         Region volumeBounds = new Region(-planetRadius, -planetRadius, -planetRadius, planetRadius, planetRadius, planetRadius);
         TerrainVolumeData data = VolumeData.CreateEmptyVolumeData<TerrainVolumeData>(volumeBounds, saveLocation);
 
