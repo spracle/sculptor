@@ -18,6 +18,7 @@ public class HandBehaviour : MonoBehaviour {
     public GameObject rightHandAnchor = null;
 
     private TrackAnchor trackAnchor;
+    private RecordBehaviour recordBehaviour;
 
     private TerrainVolume terrainVolume;
 
@@ -72,6 +73,8 @@ public class HandBehaviour : MonoBehaviour {
 
     private Color colorChose = Color.white;
 
+    private float appStartTime;
+
     // -- OVRInput Info
 
     // Axis2D
@@ -106,6 +109,8 @@ public class HandBehaviour : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
+        appStartTime = Time.time;
+
         terrainVolume = BasicProceduralVolume.GetComponent<TerrainVolume>();
 
         if (leftHandAnchor == null || rightHandAnchor == null || BasicProceduralVolume == null)
@@ -120,6 +125,7 @@ public class HandBehaviour : MonoBehaviour {
         VoxelWorldTransform = terrainVolume.transform;
 
         trackAnchor = GetComponent<TrackAnchor>();
+        recordBehaviour = GetComponent<RecordBehaviour>();
 
         // empty
         emptyMaterialSet = new MaterialSet();
