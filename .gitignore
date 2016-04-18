@@ -8,3 +8,4 @@
 *.exp
 *.vdb
 *.vdb.meta
+/Record
